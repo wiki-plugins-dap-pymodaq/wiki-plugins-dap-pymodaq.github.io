@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture RPi Zero - PyMODAQ</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <script src="../script.js" defer></script>
+</head>
+<body>
+
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="overlay" onclick="toggleMenu()"></div>
+
+    <nav class="sidebar">
+        <div class="logo">Py<span>DAP</span><br><small>BTS CIEL 2026</small></div>
+
+        <a href="../index.html" class="status-badge" style="text-decoration: none; text-align: center; margin-top: 10px; display: block;">
+            ← Retour Accueil
+        </a>
+
+        <p class="menu-label">Sous-Projets (Repos)</p>
+        <ul class="nav-links">
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins Arduino
+                </a>
+            </li>
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins RPi 3
+                </a>
+                <ul class="nav-sub"> 
+                    <li><a href="../RPI3B/presentation.html">Présentation</a></li>
+                    <li><a href="../RPI3B/rpi3_install.html">Installation et configuration OS</a></li>
+                    <li><a href="../RPI3B/configuration_rpi3b.html">Configuration Venv</a></li>
+                    <li><a href="../RPI3B/lancement_du_script.html">Lancement du script</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins RPi Zero
+                </a>
+                <ul class="nav-sub">
+                    <li><a href="../RPI0/rpi_zero.html">Architecture</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+        <div class="sidebar-footer">
+            Lycée Edouard Branly<br>
+            Session 2026
+        </div>
+    </nav>
+
+    <main class="content">
+
+        <header>
+            <span class="status-badge">Hardware & Électronique</span>
+            <h1>Architecture Système (RPi Zero)</h1>
+            <p class="lead">Système de Régulation Thermique : Architecture matérielle et principe de fonctionnement.</p>
+        </header>
+
+        <hr class="divider">
+
+        <section id="intro">
+            <p>Ce schéma de câblage illustre l'architecture matérielle d'un système automatisé de contrôle de la température. Le système utilise un microcontrôleur (Raspberry Pi Zero) pour lire les données d'un capteur externe et piloter deux actionneurs de puissance : un système de chauffe et un système de refroidissement.</p>
+
+            <div class="card" style="text-align: center; margin-top: 20px;">
+                
+                <img src="images/schema-rp0.png" alt="Emplacement pour le schéma de câblage" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); min-height: 200px; display: inline-block;">
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;"><em>Figure 1 : Schéma de l'architecture matérielle</em></p>
+            </div>
+        </section>
+
+        <section id="composants" style="margin-top: 30px;">
+            <h2>1. Les Composants Principaux</h2>
+            <div class="card">
+                <p>Le circuit est divisé en trois grands blocs fonctionnels :</p>
+                <ul class="custom-list">
+                    <li><strong>Le cerveau du système (Montage RaspiZero - Bloc vert de gauche)</strong>.</li>
+                    <li><strong>Le module de commutation (Zone bleue) :</strong> Il intègre deux relais électromécaniques. Ces relais agissent comme des interrupteurs pilotés par le Raspberry Pi. Ils permettent d'isoler le circuit logique basse tension du Pi des circuits de puissance (ventilateur et résistance).</li>
+                    <li><strong>Le module d'acquisition (Zone orange en bas) :</strong> Il s'agit d'une interface de conversion analogique-numérique (CAN/ADC). On y voit les broches AN0, AN1, AN2, AN3 et GND. Il sert à traduire le signal analogique du capteur en données numériques compréhensibles par le Raspberry Pi.</li>
+                </ul>
+
+                <h4 style="margin-top: 20px;">Les actionneurs de puissance (En haut)</h4>
+                <ul class="custom-list">
+                    <li><strong>Générateur 1 (Ventilateur) :</strong> Il représente le circuit de refroidissement. Son alimentation est coupée ou établie par l'un des relais du Raspberry Pi.</li>
+                    <li><strong>Générateur 2 (Résistance) :</strong> Il représente l'élément chauffant. Tout comme le ventilateur, son déclenchement est géré de manière isolée par le second relais.</li>
+                </ul>
+
+                <h4 style="margin-top: 20px;">Le circuit de mesure (Bloc gris en bas à droite)</h4>
+                <p>Il contient un composant étiqueté "R" (probablement une thermistance ou une sonde de température comme une PT100). Ce circuit génère une variation de tension en fonction de la température ambiante.</p>
+            </div>
+        </section>
+
+        <section id="fonctionnement" style="margin-top: 40px;">
+            <h2>2. Principe de Fonctionnement</h2>
+            <div class="card">
+                <p>Le flux d'information et d'énergie dans ce montage suit une boucle de régulation classique (Capteur &rarr; Traitement &rarr; Action) :</p>
+                
+                <ul class="custom-list custom-list-large">
+                    <li><strong>Acquisition des données :</strong> Le circuit de mesure (bloc gris) est alimenté électriquement (fils rouge et noir/bleu). La tension aux bornes de la résistance variable "R" est envoyée via les fils verts vers les entrées analogiques (bloc orange) du Raspberry Pi.</li>
+                    <li><strong>Traitement (non visible sur le schéma) :</strong> Le script exécuté sur le Raspberry Pi lit ces valeurs, calcule la température actuelle et la compare à une température de consigne définie par l'utilisateur.</li>
+                    <li><strong>Action / Commutation :</strong>
+                        <br> - Si la température est <strong>trop basse</strong>, le Raspberry Pi envoie un signal au relais correspondant pour fermer le circuit du Générateur 2, allumant ainsi la résistance chauffante.
+                        <br> - Si la température est <strong>trop haute</strong>, le Pi désactive la résistance et active l'autre relais pour fermer le circuit du Générateur 1, déclenchant ainsi le ventilateur pour refroidir le système.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="securite" style="margin-top: 40px;">
+            <h2>3. Note de Conception (Sécurité)</h2>
+            <div class="info-box success-box">
+                <strong>Isolation Galvanique :</strong> L'utilisation des relais (dans la zone bleue) est cruciale ici. Elle assure une isolation galvanique : le courant fort nécessaire pour faire tourner le ventilateur ou chauffer la résistance ne traverse jamais la carte du Raspberry Pi, ce qui protège cette dernière des surtensions et des courts-circuits.
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki PyMODAQ - Présentation Projet</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="overlay" onclick="toggleMenu()"></div>
+
+    <nav class="sidebar">
+        <div class="logo">Py<span>MoDAQ</span><br><small>BTS CIEL 2026</small></div>
+        
+        <p class="menu-label">Sous-Projets (Repos)</p>
+        <ul class="nav-links">
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins Arduino
+                </a>
+                <ul class="nav-sub">
+                    <li><a href="RPI0/presentation.html">1. Présentation</a></li>
+                    
+                </ul>
+            </li>
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins RPi 3
+                </a>
+                <ul class="nav-sub">
+                    <li><a href="RPI3B/presentation.html">1. Présentation</a></li>
+                    <li><a href="RPI3B/rpi3_install.html">2. Installation OS</a></li>
+                    <li><a href="RPI3B/configuration_rpi3b.html">3. Setup Venv</a></li>
+                    <li><a href="RPI3B/lancement_du_script.html">4. Lancement Script</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins RPi Zero
+                </a>
+                <ul class="nav-sub">
+                    <li><a href="RPI0/rpi_zero.html">1. Architecture</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+        <div class="sidebar-footer">
+            Lycée Edouard Branly<br>
+            Session 2026
+        </div>
+    </nav>
+
+    <main class="content">
+
+        <section id="intro">
+            <span class="status-badge">E6 IR - Informatique et Réseaux</span>
+            <header>
+                <h1>Projet PyDAP</h1>
+                <p class="lead">Modular Data Acquisition with Python</p>
+            </header>
+
+            <div class="card">
+                <h3>Introduction et Contexte</h3>
+                <p>Ce projet s'inscrit dans le cadre de l'épreuve <strong>E6 IR</strong> (Informatique et Réseaux - Électronique) du BTS Cybersécurité, Informatique et réseaux, Électronique (CIEL) Option A, session 2026.</p>
+                <p><strong>L'objectif principal</strong> est de migrer les bancs d'expérimentation du logiciel propriétaire <strong>LabVIEW</strong> vers <strong>PyMODAQ</strong>, un framework d'acquisition de données libre et open source. Ce changement vise à réduire les coûts d'utilisation du logiciel.</p>
+            </div>
+
+            <div class="grid grid-margin-top">
+                <div class="card info-box">
+                    <h4>🏫 Établissement</h4>
+                    <p>Lycée Edouard Branly, Lyon.</p>
+                </div>
+                <div class="card info-box">
+                    <h4>🤝 Partenaire Pro</h4>
+                    <p><strong>CETHIL</strong> (Centre d'énergétique et de thermique de Lyon), sous tutelle CNRS, INSA Lyon et UCBL 1.</p>
+                </div>
+                <div class="card info-box">
+                    <h4>🔬 Domaine</h4>
+                    <p>Laboratoire (recherche), supervision et enseignement.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section id="objectifs">
+            <h2>Objectifs Principaux</h2>
+            <p>Le projet vise à mettre en œuvre le framework PyMODAQ sur deux montages expérimentaux thermiques et à développer un nouveau module/plugin pour le Raspberry Pi.</p>
+            
+            <ul class="custom-list custom-list-large">
+                <li>📍 Mettre en œuvre les interfaces d'acquisition et les pré-actionneurs pour les deux montages expérimentaux thermiques.</li>
+                <li>📍 Développer un nouveau module logiciel pour le <strong>Raspberry Pi</strong> afin de l'intégrer à PyMODAQ (montages pédagogiques à faible coût).</li>
+                <li>📍 Développer une configuration spécifique pour le « montage expérimental thermique de tests ».</li>
+                <li>📍 Développer une configuration spécifique pour le « montage expérimental thermique du lycée ».</li>
+            </ul>
+        </section>
+
+        <hr class="divider">
+
+        <section id="tech">
+            <h2>Technologies Clés et Exigences Techniques</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="20%">Catégorie</th>
+                            <th width="30%">Éléments Clés</th>
+                            <th>Source / Exigence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Framework DAQ</strong></td>
+                            <td>PyMODAQ</td>
+                            <td>Respecter les règles et chartes de développement PyMoDAQ.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Langage</strong></td>
+                            <td>Python</td>
+                            <td>Utilisation exclusive du langage Python.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Matériel</strong></td>
+                            <td>RPi (Zero/3), Arduino</td>
+                            <td>Nouveau module/plugin à concevoir pour le Raspberry Pi.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Communication</strong></td>
+                            <td>ZeroMQ</td>
+                            <td>S'appuyer sur ZeroMQ (messagerie) pour la com avec les RPi.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gestion</strong></td>
+                            <td>Git, GitLab</td>
+                            <td>Méthode Agile avec sprints (min 3 versions : V1, V2, V3).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Environnement</strong></td>
+                            <td>PyCharm, Win/Lin</td>
+                            <td>Les applications devront être testées pour Windows et Linux.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Exportation</strong></td>
+                            <td>HDF5 (.h5)</td>
+                            <td>Assurer l'exportation des données de mesure.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section id="equipe">
+            <h2>Organisation de l'Équipe</h2>
+            <p>Répartition des tâches (Ta0 à Ta4) et responsabilités transversales :</p>
+            
+            <div class="grid">
+                <div class="card role-card">
+                    <span class="id-tag">E1</span>
+                    <h3>Responsable Git & CI/CD</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        Concevoir et réaliser le module/plugin PyMoDAQ et le Dashboard montage tests.
+                    </p>
+                </div>
+                
+                <div class="card role-card">
+                    <span class="id-tag">E2</span>
+                    <h3>Responsable Wiki</h3>
+                    <p class="role-description">
+                        Mettre en œuvre et configurer le Raspberry Pi et les interfaces/pré-actionneurs pour le montage tests.
+                    </p>
+                </div>
+
+                <div class="card role-card">
+                    <span class="id-tag">E3</span>
+                    <h3>Resp. Planification</h3>
+                    <p class="role-description">
+                        Dashboard montage lycée avec les modules Arduino existants.
+                    </p>
+                </div>
+
+                <div class="card role-card">
+                    <span class="id-tag">E4</span>
+                    <h3>Resp. Recettes</h3>
+                    <p class="role-description">
+                        Dashboard montage lycée avec le nouveau module Raspberry Pi Zero.
+                    </p>
+                </div>
+            </div>
+
+            <div class="info-box success-box">
+                <strong>Tâches Communes (Ta0) :</strong> Prise de connaissance du cahier des charges, analyse préliminaire, formation à PyMoDAQ, configuration des outils de développement et élaboration des fiches de recettes.
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

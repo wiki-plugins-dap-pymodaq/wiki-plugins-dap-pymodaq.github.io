@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lancement du Script RPi 3 - PyMODAQ</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <script src="../script.js" defer></script>
+</head>
+<body>
+
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="overlay" onclick="toggleMenu()"></div>
+
+    <nav class="sidebar">
+        <div class="logo">Py<span>DAP</span><br><small>BTS CIEL 2026</small></div>
+
+        <a href="../index.html" class="status-badge" style="text-decoration: none; text-align: center; margin-top: 10px; display: block;">
+            ← Retour Accueil
+        </a>
+
+        <p class="menu-label">Sous-Projets (Repos)</p>
+        <ul class="nav-links">
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins Arduino
+                </a>
+                <ul class="nav-sub">
+                    <li><a href="../Arduino/presentation.html">Présentation</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins RPi 3
+                </a>
+                <ul class="nav-sub"> 
+                    <li><a href="../RPI3B/presentation.html">Présentation</a></li>
+                    <li><a href="../RPI3B/rpi3_install.html">Installation et configuration OS</a></li>
+                    <li><a href="../RPI3B/configuration_rpi3b.html">Configuration Venv</a></li>
+                    <li><a href="../RPI3B/lancement_du_script.html">Lancement du script</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-group">
+                <a href="#" class="nav-group-title">
+                    <span class="nav-arrow">▶</span> Plugins RPi Zero
+                </a>
+                <ul class="nav-sub">
+                    <li><a href="../RPI0/rpi_zero.html">Architecture</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+        <div class="sidebar-footer">
+            Lycée Edouard Branly<br>
+            Session 2026
+        </div>
+    </nav>
+
+    <main class="content">
+
+        <header>
+            <span class="status-badge">Exécution & Services</span>
+            <h1>Lancement du Script</h1>
+            <p class="lead">Il existe deux méthodes pour lancer le script : soit vous le démarrez manuellement après chaque redémarrage du Raspberry Pi, soit vous configurez le système d'exploitation du Raspberry Pi pour qu'il le lance automatiquement à chaque mise sous tension.</p>
+        </header>
+
+        <hr class="divider">
+
+        <section id="manuel">
+            <h2>1. Lancement manuel du Script</h2>
+            <div class="card">
+                <p>Pour exécuter le script manuellement, il est nécessaire d'activer l'environnement virtuel qui l'héberge.</p>
+                <div class="terminal-box">
+                    <span class="comment"># Activer l'environnement virtuel</span>
+                    <div class="command-row">
+                        <code>source PY_ENV/bin/activate</code>
+                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                    </div>
+                    <span class="comment"># Lancer le script</span>
+                    <div class="command-row">
+                        <code>python main.py</code>
+                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 15px; border-left-color: #f59e0b;">
+                    <strong>Avertissement :</strong> Vous devez démarrer le service <code>pigpiod</code> avant d'exécuter le script avec la commande <code>python main.py</code>.
+                </div>
+            </div>
+        </section>
+
+        <section id="auto" style="margin-top: 40px;">
+            <h2>2. Lancement automatique du Script (Service Systemd)</h2>
+            <div class="card">
+                <p>Pour lancer le script automatiquement, vous devez créer un fichier <code>.service</code> dans le répertoire <code>/etc/systemd/system/</code> et y ajouter le code ci-dessous.</p>
+                
+                <div class="terminal-box">
+                    <div class="command-row" style="align-items: flex-start;">
+<pre style="color: #e2e8f0; font-family: 'Fira Code', monospace; font-size: 0.85rem; margin: 0; overflow-x: auto; flex-grow: 1;">[Unit] 
+<span style="color: #64748b; font-style: italic;"># Nom affiché dans les logs et journalctl</span> 
+Description=Serveur ZeroMQ de pilotage thermique 
+<span style="color: #64748b; font-style: italic;"># Démarre ce service APRÈS que le réseau soit disponible</span> 
+<span style="color: #64748b; font-style: italic;"># et APRÈS le démon pigpio (contrôle GPIO du Raspberry Pi)</span> 
+After=network.target pigpiod.service 
+
+[Service] 
+<span style="color: #64748b; font-style: italic;"># Commande de lancement : utilise le Python de l'environnement</span> 
+<span style="color: #64748b; font-style: italic;"># virtuel dédié au projet, et exécute le point d'entrée principal</span> 
+ExecStart=/home/admin/PYMODAQ_PROJET_2026/PY_ENV/bin/python /home/admin/PYMODAQ_PROJET_2026/main.py 
+<span style="color: #64748b; font-style: italic;"># Répertoire de travail du processus (important pour les imports</span> 
+<span style="color: #64748b; font-style: italic;"># relatifs et la résolution des fichiers de config)</span> 
+WorkingDirectory=/home/admin/PYMODAQ_PROJET_2026 
+<span style="color: #64748b; font-style: italic;"># Redirige stdout/stderr vers le journal parent (journalctl)</span> 
+StandardOutput=inherit 
+StandardError=inherit 
+<span style="color: #64748b; font-style: italic;"># Redémarre automatiquement le service en cas de crash</span>
+Restart=always 
+<span style="color: #64748b; font-style: italic;"># Utilisateur sous lequel tourne le processus (évite root)</span> 
+User=admin 
+
+[Install] 
+<span style="color: #64748b; font-style: italic;"># Active le service au démarrage pour le niveau multi-utilisateur</span> 
+WantedBy=multi-user.target</pre>
+                        <button onclick="copyCommand(this)" class="copy-btn-mini" style="margin-left: 15px;">Copier</button>
+                    </div>
+                </div>
+
+                <p style="margin-top: 15px;">Dans ce script, vous devez modifier les lignes <code>ExecStart</code> et <code>WorkingDirectory</code> pour spécifier votre chemin d'accès, ainsi que la ligne <code>User</code> pour indiquer le nom de votre session.</p>
+                
+                <p style="margin-top: 20px;">Après la création du fichier de service, exécutez les commandes suivantes pour appliquer la configuration et gérer le service :</p>
+                
+                <div class="terminal-box">
+                    <span class="comment"># Recharger la configuration de systemd :</span>
+                    <div class="command-row"><code>sudo systemctl daemon-reload</code><button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button></div>
+                    <span class="comment"># Activer le lancement automatique au démarrage :</span>
+                    <div class="command-row"><code>sudo systemctl enable pilotage.service</code><button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button></div>
+                    <span class="comment"># Démarrer le service immédiatement (sans redémarrer le système) :</span>
+                    <div class="command-row"><code>sudo systemctl start pilotage.service</code><button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button></div>
+                    <span class="comment"># Vérifier le statut du service pour s'assurer qu'il n'y a pas d'erreurs :</span>
+                    <div class="command-row"><code>sudo systemctl status pilotage.service</code><button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button></div>
+                </div>
+                <p style="margin-top: 15px;">Si la commande <code>sudo systemctl status pilotage.service</code> ne signale aucune erreur, cela indique que votre script <code>main.py</code> est en cours d'exécution.</p>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
