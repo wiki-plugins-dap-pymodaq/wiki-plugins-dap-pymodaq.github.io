@@ -15,7 +15,7 @@
 }
 
 body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-main);
     margin: 0;
@@ -63,7 +63,7 @@ body {
     margin-bottom: 10px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgb(255 255 255 / 5%);
     padding-bottom: 5px;
 }
 
@@ -94,7 +94,7 @@ body {
 }
 
 .nav-group-title:hover {
-    background: rgba(56, 189, 248, 0.08);
+    background: rgb(56 189 248 / 8%);
     color: var(--primary);
 }
 
@@ -147,7 +147,7 @@ body {
 .nav-sub li a.active {
     color: var(--primary);
     border-left-color: var(--primary);
-    background: rgba(56, 189, 248, 0.06);
+    background: rgb(56 189 248 / 6%);
 }
 
 .sidebar-footer {
@@ -186,7 +186,7 @@ h3 {
 
 h4 {
     color: var(--primary);
-    margin: 0 0 5px 0;
+    margin: 0 0 5px;
     font-size: 1rem;
 }
 
@@ -205,7 +205,7 @@ h4 {
 
 .status-badge {
     display: inline-block;
-    background: rgba(168, 85, 247, 0.15);
+    background: rgb(168 85 247 / 15%);
     color: var(--accent);
     border: 1px solid var(--accent);
     padding: 4px 12px;
@@ -239,23 +239,22 @@ h4 {
     border: 1px solid var(--border);
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 }
 
 .info-box {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgb(255 255 255 / 2%);
     transition: transform 0.2s;
 }
 
 .info-box:hover {
-    
     border-color: var(--primary);
 }
 
 .success-box {
     margin-top: 30px;
     border-left-color: var(--success);
-    background: rgba(34, 197, 94, 0.1);
+    background: rgb(34 197 94 / 10%);
 }
 
 .table-container {
@@ -278,7 +277,7 @@ td {
 }
 
 th {
-    background: rgba(56, 189, 248, 0.05);
+    background: rgb(56 189 248 / 5%);
     color: var(--primary);
     font-weight: 600;
     font-size: 0.9rem;
@@ -290,7 +289,7 @@ tr:last-child td {
 }
 
 tr:hover {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: rgb(255 255 255 / 2%);
 }
 
 .role-card {
@@ -317,8 +316,8 @@ tr:hover {
 
 .highlight-me {
     border: 1px solid var(--primary);
-    background: rgba(56, 189, 248, 0.05);
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+    background: rgb(56 189 248 / 5%);
+    box-shadow: 0 0 20px rgb(56 189 248 / 10%);
 }
 
 .custom-list {
@@ -357,8 +356,8 @@ tr:hover {
 .overlay {
     display: none;
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.7);
+    inset: 0;
+    background: rgb(0 0 0 / 70%);
     z-index: 999;
     backdrop-filter: blur(2px);
 }
@@ -376,7 +375,7 @@ tr:hover {
     
     .sidebar.active {
         transform: translateX(0);
-        box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+        box-shadow: 5px 0 20px rgb(0 0 0 / 50%);
     }
 
     .overlay.active {
@@ -404,11 +403,11 @@ tr:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgb(0 0 0 / 30%);
     padding: 8px 12px;
     border-radius: 6px;
     margin-bottom: 10px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgb(255 255 255 / 5%);
 }
 
 .command-row:last-child {
@@ -430,7 +429,7 @@ tr:hover {
 }
 
 .copy-btn-mini {
-    background: rgba(56, 189, 248, 0.1);
+    background: rgb(56 189 248 / 10%);
     color: var(--primary);
     border: 1px solid var(--primary);
     padding: 4px 10px;
@@ -449,7 +448,7 @@ tr:hover {
 /* --- TOC inline sous le lien actif --- */
 .toc-inline {
     list-style: none;
-    padding: 4px 0 6px 0;
+    padding: 4px 0 6px;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -477,13 +476,13 @@ tr:hover {
 .toc-inline li a:hover {
     color: var(--primary);
     border-left-color: var(--primary);
-    background: rgba(56, 189, 248, 0.05);
+    background: rgb(56 189 248 / 5%);
 }
 
 .toc-inline li a.toc-active {
     color: var(--primary);
     border-left-color: var(--primary);
-    background: rgba(56, 189, 248, 0.07);
+    background: rgb(56 189 248 / 7%);
     font-weight: 600;
 }
 
