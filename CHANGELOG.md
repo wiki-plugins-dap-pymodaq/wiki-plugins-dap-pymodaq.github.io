@@ -5,6 +5,13 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.2.4] - 2026-06-04
+
+### Ajouté
+- **Bouton « Retour accueil » en mode rail** : quand il est présent (sur les sous-pages),
+  il s'affiche désormais sous forme d'**icône maison** centrée lorsque la barre est
+  réduite, au lieu d'être masqué. En mode ouvert, il garde son libellé « ← Retour Accueil ».
+
 ## [1.2.3] - 2026-06-04
 
 ### Corrigé

@@ -69,7 +69,7 @@ ${items}
   const backHome =
     activePage === 'accueil'
       ? ''
-      : `<a href="${base}index.html" class="status-badge sidebar-back">← Retour Accueil</a>`;
+      : `<a href="${base}index.html" class="status-badge sidebar-back" aria-label="Retour à l'accueil" title="Retour à l'accueil"><span class="sidebar-back__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8" /><path d="M5 10v10h14V10" /></svg></span><span class="sidebar-back__text">← Retour Accueil</span></a>`;
 
   return `<button class="sidebar-toggle" type="button" aria-label="Réduire le menu" aria-expanded="true"><span class="sidebar-toggle__icon" aria-hidden="true">«</span></button>
 <hr class="rail-divider">
@@ -194,7 +194,7 @@ function injectShell() {
 // Version de repli, affichée quand `fetch` est indisponible (ouverture en `file://`,
 // où les navigateurs bloquent la lecture des fichiers locaux). À garder synchronisée
 // avec public/version.json, qui reste la source canonique (site déployé en HTTP + CI).
-const FALLBACK_VERSION = '1.2.3';
+const FALLBACK_VERSION = '1.2.4';
 
 // Affiche la version courante en pied de sidebar : repli immédiat, puis valeur
 // canonique lue dans version.json dès que le site est servi en HTTP.

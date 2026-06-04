@@ -693,6 +693,11 @@ a.logo {
     display: none;
 }
 
+/* Icône maison du bouton « Retour accueil » (visible seulement en mode rail) */
+.sidebar-back__icon {
+    display: none;
+}
+
 @media (min-width: 769px) {
     .sidebar-toggle { display: block; }
 
@@ -727,7 +732,7 @@ a.logo {
     .is-collapsed .logo small,
     .is-collapsed .logo br,
     .is-collapsed .menu-label,
-    .is-collapsed .sidebar-back,
+    .is-collapsed .sidebar-back__text,
     .is-collapsed .nav-group-title,
     .is-collapsed .nav-sub,
     .is-collapsed .sidebar-footer__text {
@@ -742,6 +747,20 @@ a.logo {
     }
 
     .is-collapsed .nav-rail-icon { display: flex; }
+
+    /* Bouton « Retour accueil » en mode rail : icône maison centrée */
+    .is-collapsed .sidebar-back {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 40px;
+        margin: 2px auto;
+        padding: 0;
+        background: transparent;
+    }
+
+    .is-collapsed .sidebar-back__icon { display: flex; }
 }
 
 @media (prefers-reduced-motion: reduce) {
