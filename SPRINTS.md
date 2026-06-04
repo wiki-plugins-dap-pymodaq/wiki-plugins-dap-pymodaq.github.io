@@ -26,11 +26,12 @@ Workflow `.github/workflows/deploy.yml` : job `lint` (ESLint + Stylelint, inform
 puis job `deploy` publiant `public/` sur GitHub Pages (Source : « GitHub Actions »).
 Ajout de `.gitattributes` (normalisation LF).
 
-## ⬜ Sprint 2 — Coquille partagée / DRY (v0.3.0)
-Sidebar et pied de page injectés depuis une **source unique** via `script.js`
-(`data-shell`), suppression de la duplication dans chaque page. Chemins relatifs
-paramétrés (`data-base`) et lien actif via `data-page`. Résorbe durablement les
-incohérences de navigation (cause des hotfixes v0.0.1).
+## ✅ Sprint 2 — Coquille partagée / DRY (v0.3.0)
+Sidebar (+ bouton menu mobile et overlay) injectée depuis une **source unique**
+(`NAV_GROUPS` dans `script.js`), suppression de la duplication dans chaque page.
+Chemins relatifs paramétrés (`data-base`) et lien actif via `data-page`. Contrôles
+câblés en `addEventListener`. Résorbe durablement les incohérences de navigation
+(cause des hotfixes v0.0.1). Vérifié en navigateur (accueil + sous-page).
 
 ## ⬜ Sprint 3 — Qualité du code & accessibilité (v0.4.0)
 Externalisation des styles inline → classes CSS (`kebab-case`), remplacement des
@@ -52,6 +53,6 @@ Par page : `description`, Open Graph, `canonical`, `theme-color` ; `favicon`,
 | v0.0.1  | Hotfixes navigation & branding             | ✅     |
 | v0.1.0  | Sprint 0 — Fondations & outillage          | ✅     |
 | v0.2.0  | Sprint 1 — CI/CD GitHub Actions            | ✅     |
-| v0.3.0  | Sprint 2 — Coquille partagée (DRY)         | ⬜     |
+| v0.3.0  | Sprint 2 — Coquille partagée (DRY)         | ✅     |
 | v0.4.0  | Sprint 3 — Qualité code & accessibilité    | ⬜     |
 | v1.0.0  | Sprint 4 — SEO, performance, production    | ⬜     |

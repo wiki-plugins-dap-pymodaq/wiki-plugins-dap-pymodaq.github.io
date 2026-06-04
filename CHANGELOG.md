@@ -5,6 +5,23 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [0.3.0] - 2026-06-04
+
+### Ajouté
+- **Coquille partagée (DRY)** : la barre latérale (sidebar), le bouton de menu mobile et
+  l'overlay sont désormais injectés depuis une **source unique** (`NAV_GROUPS` dans
+  `script.js`) au lieu d'être dupliqués dans chaque page HTML.
+- Attributs `data-base` (chemin relatif vers la racine) et `data-page` (clé de la page
+  active) portés par `<html>` : les liens et le lien actif sont calculés automatiquement,
+  ce qui supprime durablement la classe de bugs des hotfixes v0.0.1.
+- Logo cliquable (retour à l'accueil) et règles CSS associées (`a.logo`, `.sidebar-back`).
+
+### Modifié
+- Les contrôles de la coquille (menu, overlay, menu arborescent) utilisent
+  `addEventListener` au lieu de handlers `onclick` inline.
+- `script.js` restructuré autour de l'injection de la coquille (`injectShell`,
+  `buildSidebar`) ; `buildTOC` conservé (table des matières + scroll-spy).
+
 ## [0.2.0] - 2026-06-04
 
 ### Ajouté

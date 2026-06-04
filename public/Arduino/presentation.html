@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-base="../" data-page="arduino-presentation">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,56 +10,7 @@
 </head>
 <body>
 
-    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-    <div class="overlay" onclick="toggleMenu()"></div>
-
-    <nav class="sidebar">
-        <div class="logo">DAP<span>Pymodaq</span><br><small>Wiki Plugins · BTS CIEL 2026</small></div>
-
-        <a href="../index.html" class="status-badge" style="text-decoration: none; text-align: center; margin-top: 10px; display: block;">
-            ← Retour Accueil
-        </a>
-
-        <p class="menu-label">Sous-Projets (Repos)</p>
-        <ul class="nav-links">
-
-            <li class="nav-group">
-                <a href="#" class="nav-group-title">
-                    <span class="nav-arrow">▶</span> Plugins Arduino
-                </a>
-                <ul class="nav-sub">
-                    <li><a href="../Arduino/presentation.html">Présentation</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-group">
-                <a href="#" class="nav-group-title">
-                    <span class="nav-arrow">▶</span> Plugins RPi 3
-                </a>
-                <ul class="nav-sub"> 
-                    <li><a href="../RPI3B/presentation.html">Présentation</a></li>
-                    <li><a href="../RPI3B/rpi3_install.html">Installation et configuration OS</a></li>
-                    <li><a href="../RPI3B/configuration_rpi3b.html">Configuration Venv</a></li>
-                    <li><a href="../RPI3B/lancement_du_script.html">Lancement du script</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-group">
-                <a href="#" class="nav-group-title">
-                    <span class="nav-arrow">▶</span> Plugins RPi Zero
-                </a>
-                <ul class="nav-sub">
-                    <li><a href="../RPI0/rpi_zero.html">Architecture</a></li>
-                </ul>
-            </li>
-
-        </ul>
-
-        <div class="sidebar-footer">
-            Lycée Edouard Branly<br>
-            Session 2026
-        </div>
-    </nav>
+    <nav class="sidebar" data-shell="sidebar"></nav>
 
     <main class="content">
 

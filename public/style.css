@@ -486,3 +486,16 @@ tr:hover {
     background: rgba(56, 189, 248, 0.07);
     font-weight: 600;
 }
+
+/* Coquille partagee : logo cliquable + lien retour accueil (injectes par script.js) */
+a.logo {
+    display: block;
+    text-decoration: none;
+}
+
+.sidebar-back {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    text-decoration: none;
+}
