@@ -34,6 +34,28 @@ Pages :
 
 Aucune dépendance d'exécution, aucun backend.
 
+## Mention IA
+
+Ce wiki a été conçu et développé avec l'assistance d'outils d'intelligence
+artificielle, utilisés comme de véritables **outils de productivité**. C'est une
+démarche assumée : l'IA fait aujourd'hui partie intégrante du métier de développeur et
+du marché actuel, et nous choisissons de **nous y adapter et de la maîtriser** plutôt
+que de l'ignorer.
+
+Ce qui fait la différence, c'est l'**usage**. Nous nous **documentons en profondeur**
+sur ces outils pour les exploiter avec discernement, comme un véritable levier de
+productivité. L'IA accélère la mise en œuvre — elle ne remplace ni la conception, ni les
+décisions techniques, ni la compréhension du code. La **grande majorité des
+fonctionnalités** et de la **stack technique** employées ici nous sont familières : nous
+savons ce qui a été construit, pourquoi, et comment le faire évoluer et le maintenir.
+
+Concrètement, un projet de cette envergure représente normalement **3 à 5 semaines de
+travail à temps plein** (soit plusieurs mois en parallèle de nos études). En nous
+appuyant sur l'IA, nous l'avons réalisé en une fraction de ce temps, en concentrant
+notre énergie sur l'**architecture**, la **qualité** et les **détails** plutôt que sur
+les tâches répétitives — exactement le gain de productivité recherché dans un
+environnement de travail moderne.
+
 ## Structure du projet
 
 ```
