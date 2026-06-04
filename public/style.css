@@ -630,3 +630,102 @@ a.logo {
         transition: none;
     }
 }
+
+/* ============================================================
+   Sprint 5 — Barre laterale retractable (mode rail, desktop)
+   ============================================================ */
+
+/* Bouton de repli (affiche sur desktop uniquement) */
+.sidebar-toggle {
+    display: none;
+    align-self: flex-end;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 6px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Icone de groupe en mode rail (masquee hors rail) */
+.nav-rail-icon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 40px;
+    margin: 2px auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nav-rail-icon:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: rgb(56 189 248 / 8%);
+}
+
+.nav-rail-icon.active {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: rgb(56 189 248 / 12%);
+}
+
+@media (min-width: 769px) {
+    .sidebar-toggle { display: block; }
+
+    .sidebar { transition: width 0.2s ease; }
+    .content { transition: margin-left 0.2s ease; }
+
+    .is-collapsed .sidebar {
+        width: 72px;
+        padding: 16px 8px;
+        align-items: center;
+    }
+
+    .is-collapsed .content { margin-left: 72px; }
+
+    .is-collapsed .sidebar-toggle { align-self: center; }
+
+    .is-collapsed .logo {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .is-collapsed .logo span,
+    .is-collapsed .logo small,
+    .is-collapsed .logo br,
+    .is-collapsed .menu-label,
+    .is-collapsed .sidebar-back,
+    .is-collapsed .nav-group-title,
+    .is-collapsed .nav-sub,
+    .is-collapsed .sidebar-footer {
+        display: none;
+    }
+
+    .is-collapsed .nav-rail-icon { display: flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar,
+    .content {
+        transition: none;
+    }
+}

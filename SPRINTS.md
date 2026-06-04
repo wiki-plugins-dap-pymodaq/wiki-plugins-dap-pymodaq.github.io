@@ -47,6 +47,17 @@ Par page : `description`, Open Graph, `canonical`, `theme-color` ; `favicon.svg`
 `sitemap.xml`, `robots.txt` ; `loading="lazy"` sur toutes les images. Première version
 « production », tag Git `v1.0.0`.
 
+## ✅ Sprint 5 — Barre latérale rétractable (v1.1.0)
+La barre se replie en mode « rail » étroit (~72 px) qui reste visible (icônes de groupe
+cliquables vers chaque plugin). État par défaut selon la page (accueil ouverte, autres
+réduites), choix mémorisé en `localStorage`, anti-clignotement par script inline.
+Comportement desktop ; mobile inchangé (tiroir off-canvas). Vérifié en navigateur.
+
+## ⬜ Sprint 6 — Refonte de l'accueil + liens plugins (v1.2.0)
+Réécriture de `index.html` : retrait de la pastille « E6 », nouveau hero clair (H1
+« Wiki Plugins DAP Pymodaq », mention du nom court « DAP Pymodaq »), 3 cartes plugins
+avec liens directs vers les docs, contexte simplifié et sections denses allégées.
+
 ---
 
 ### Récapitulatif par version
@@ -59,3 +70,5 @@ Par page : `description`, Open Graph, `canonical`, `theme-color` ; `favicon.svg`
 | v0.3.0  | Sprint 2 — Coquille partagée (DRY)         | ✅     |
 | v0.4.0  | Sprint 3 — Qualité code & accessibilité    | ✅     |
 | v1.0.0  | Sprint 4 — SEO, performance, production    | ✅     |
+| v1.1.0  | Sprint 5 — Barre latérale rétractable      | ✅     |
+| v1.2.0  | Sprint 6 — Refonte de l'accueil            | ⬜     |

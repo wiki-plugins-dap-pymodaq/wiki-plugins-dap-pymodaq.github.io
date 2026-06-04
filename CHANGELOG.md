@@ -5,6 +5,21 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.1.0] - 2026-06-04
+
+### Ajouté
+- **Barre latérale rétractable** (mode « rail ») : un bouton replie la barre en une
+  version étroite (~72 px) qui reste visible, avec des icônes de groupe (ARD / RP3 / RP0)
+  cliquables menant directement à chaque plugin. Le contenu s'élargit en conséquence.
+- État par défaut selon la page (`data-page`) : **accueil ouverte**, autres pages
+  **réduites**. Le choix de l'utilisateur est **mémorisé** (`localStorage`) et surcharge
+  le défaut. Script inline anti-clignotement appliquant l'état avant le premier rendu.
+
+### Notes
+- Le mode rail est un comportement **desktop** (≥ 769 px) ; en mobile, la barre conserve
+  son tiroir off-canvas et le bouton hamburger. Transitions désactivées si
+  `prefers-reduced-motion`.
+
 ## [1.0.0] - 2026-06-04
 
 Première version « production ».

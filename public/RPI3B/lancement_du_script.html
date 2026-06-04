@@ -16,6 +16,16 @@
     <meta property="og:url" content="https://wiki-plugins-dap-pymodaq.github.io/RPI3B/lancement_du_script.html">
     <meta property="og:image" content="https://wiki-plugins-dap-pymodaq.github.io/RPI3B/images/dispositif_experimental.jpg">
     <meta name="twitter:card" content="summary">
+    <script>
+      (function () {
+        try {
+          var p = document.documentElement.getAttribute('data-page');
+          var s = localStorage.getItem('wiki-sidebar-collapsed');
+          var collapsed = s !== null ? s === 'true' : p !== 'accueil';
+          if (collapsed) document.documentElement.classList.add('is-collapsed');
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="../style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
     <script src="../script.js" defer></script>

@@ -9,11 +9,13 @@ const NAV_GROUPS = [
   {
     id: 'arduino',
     title: 'Plugins Arduino',
+    code: 'ARD',
     links: [{ page: 'arduino-presentation', href: 'Arduino/presentation.html', label: 'Présentation' }],
   },
   {
     id: 'rpi3',
     title: 'Plugins RPi 3',
+    code: 'RP3',
     links: [
       { page: 'rpi3-presentation', href: 'RPI3B/presentation.html', label: 'Présentation' },
       { page: 'rpi3-install', href: 'RPI3B/rpi3_install.html', label: 'Installation OS' },
@@ -24,9 +26,13 @@ const NAV_GROUPS = [
   {
     id: 'rpi0',
     title: 'Plugins RPi Zero',
+    code: 'RP0',
     links: [{ page: 'rpi0-architecture', href: 'RPI0/rpi_zero.html', label: 'Architecture' }],
   },
 ];
+
+// Clé de mémorisation de l'état (réduit/ouvert) de la barre latérale.
+const SIDEBAR_KEY = 'wiki-sidebar-collapsed';
 
 // Échappe le HTML pour éviter toute injection via les libellés de navigation.
 function escapeHtml(value) {
@@ -48,7 +54,9 @@ function buildSidebar(base, activePage) {
         return `<li><a href="${base}${link.href}"${attrs}>${escapeHtml(link.label)}</a></li>`;
       })
       .join('\n');
+    const railIcon = `<a class="nav-rail-icon${isActiveGroup ? ' active' : ''}" href="${base}${group.links[0].href}" title="${escapeHtml(group.title)}" aria-label="${escapeHtml(group.title)}">${escapeHtml(group.code)}</a>`;
     return `<li class="nav-group${isActiveGroup ? ' open' : ''}">
+  ${railIcon}
   <a href="#" class="nav-group-title" aria-expanded="${isActiveGroup ? 'true' : 'false'}">
     <span class="nav-arrow">▶</span> ${escapeHtml(group.title)}
   </a>
@@ -63,7 +71,8 @@ ${items}
       ? ''
       : `<a href="${base}index.html" class="status-badge sidebar-back">← Retour Accueil</a>`;
 
-  return `<a class="logo" href="${base}index.html">DAP<span>Pymodaq</span><br><small>Wiki Plugins · BTS CIEL 2026</small></a>
+  return `<button class="sidebar-toggle" type="button" aria-label="Réduire le menu" aria-expanded="true"><span class="sidebar-toggle__icon" aria-hidden="true">«</span></button>
+<a class="logo" href="${base}index.html">DAP<span>Pymodaq</span><br><small>Wiki Plugins · BTS CIEL 2026</small></a>
 ${backHome}
 <p class="menu-label">Sous-Projets (Repos)</p>
 <ul class="nav-links">
@@ -74,6 +83,42 @@ ${groups}
   Session 2026
   <p class="sidebar-version" data-version></p>
 </div>`;
+}
+
+// Applique l'état réduit/ouvert de la barre (classe sur <html>) et met à jour le bouton.
+function applyCollapsed(collapsed) {
+  document.documentElement.classList.toggle('is-collapsed', collapsed);
+  const btn = document.querySelector('.sidebar-toggle');
+  if (!btn) return;
+  btn.setAttribute('aria-expanded', String(!collapsed));
+  btn.setAttribute('aria-label', collapsed ? 'Déplier le menu' : 'Réduire le menu');
+  const icon = btn.querySelector('.sidebar-toggle__icon');
+  if (icon) icon.textContent = collapsed ? '»' : '«';
+}
+
+// Détermine l'état initial (préférence mémorisée, sinon défaut selon la page) et
+// câble le bouton de repli. La préférence est conservée dans localStorage.
+function setupCollapse(activePage, sidebar) {
+  let stored = null;
+  try {
+    stored = localStorage.getItem(SIDEBAR_KEY);
+  } catch (e) {
+    stored = null;
+  }
+  let collapsed = stored !== null ? stored === 'true' : activePage !== 'accueil';
+  applyCollapsed(collapsed);
+
+  const btn = sidebar.querySelector('.sidebar-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    collapsed = !collapsed;
+    try {
+      localStorage.setItem(SIDEBAR_KEY, String(collapsed));
+    } catch (e) {
+      // localStorage indisponible (ex. file://) : on applique sans mémoriser.
+    }
+    applyCollapsed(collapsed);
+  });
 }
 
 // Injecte la coquille partagée (skip-link, bouton menu mobile, overlay, sidebar)
@@ -137,13 +182,16 @@ function injectShell() {
     if (btn) copyCommand(btn);
   });
 
+  // Barre rétractable (mode rail) : état initial + bouton de repli mémorisé.
+  setupCollapse(activePage, sidebar);
+
   loadVersion(base);
 }
 
 // Version de repli, affichée quand `fetch` est indisponible (ouverture en `file://`,
 // où les navigateurs bloquent la lecture des fichiers locaux). À garder synchronisée
 // avec public/version.json, qui reste la source canonique (site déployé en HTTP + CI).
-const FALLBACK_VERSION = '1.0.0';
+const FALLBACK_VERSION = '1.1.0';
 
 // Affiche la version courante en pied de sidebar : repli immédiat, puis valeur
 // canonique lue dans version.json dès que le site est servi en HTTP.

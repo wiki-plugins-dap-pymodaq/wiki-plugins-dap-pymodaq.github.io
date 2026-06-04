@@ -61,20 +61,24 @@ Chaque page embarque une **barre latérale** (sidebar) listant les sous-projets 
 pages, avec un menu arborescent repliable. Le lien de la page courante est surligné
 automatiquement et son groupe est déplié à l'ouverture.
 
-> **Dette technique connue (à traiter au Sprint 2)** : la sidebar et le pied de page
-> sont actuellement **dupliqués à la main** dans chaque fichier HTML. Cette duplication
-> est la cause d'incohérences passées (liens cassés, groupes vides) corrigées en
-> v0.0.1. Le Sprint 2 introduira une **coquille partagée** injectée depuis une source
-> unique (DRY) avec chemins relatifs paramétrés.
+Depuis le Sprint 2, la sidebar (et le pied de page) sont injectés par `script.js` depuis
+une **source unique** (modèle `NAV_GROUPS`), ce qui supprime la duplication HTML qui
+causait des incohérences (liens cassés, groupes vides). Depuis le Sprint 5, la barre est
+**rétractable** en mode « rail » étroit (desktop) : état par défaut selon la page,
+mémorisé en `localStorage`, avec un script inline anti-clignotement dans chaque `<head>`.
 
 ## Principaux comportements JavaScript (`script.js`)
 
-- `toggleMenu` — ouverture/fermeture du menu latéral en mobile.
-- `setActiveLink` — surlignage du lien correspondant à la page courante.
+- `injectShell` / `buildSidebar` — construit et injecte la coquille partagée (sidebar,
+  bouton menu mobile, overlay, skip-link) depuis le modèle `NAV_GROUPS`, marque la page
+  active (`data-page`) et préfixe les liens par `data-base`.
+- `setupCollapse` / `applyCollapsed` — barre rétractable (rail) : état par défaut selon
+  la page, mémorisé en `localStorage`, bouton de repli (`aria-expanded`).
 - `buildTOC` — génère une table des matières à partir des `<h2>` + scroll-spy
   (`IntersectionObserver`).
-- `initTreeMenu` — menu arborescent : ouvre/ferme les groupes, déplie le groupe actif.
-- `copyCommand` — copie le contenu d'un bloc de commande dans le presse-papiers.
+- `loadVersion` — affiche la version courante (lue dans `version.json`, repli en `file://`).
+- `showToast` — notifications accessibles (`role="status"`).
+- `copyCommand` — copie le contenu d'un bloc de commande (via délégation d'événements).
 
 ## Conventions
 
