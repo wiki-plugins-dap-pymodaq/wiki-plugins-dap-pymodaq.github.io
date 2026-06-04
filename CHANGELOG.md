@@ -5,6 +5,17 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.2.3] - 2026-06-04
+
+### Corrigé
+- **État de la barre latérale incohérent en navigation** : la barre s'ouvrait/se fermait
+  selon la page faute de préférence mémorisée (défaut « accueil ouvert / autres réduites »).
+  Le défaut par page est supprimé : l'état n'est désormais piloté **que par la mémoire**
+  (`localStorage`). Seule exception : à la **toute première visite** (aucune préférence),
+  la barre est **ouverte**. Ensuite l'état est identique sur toutes les pages et ne change
+  qu'au clic de l'utilisateur. Logique alignée entre le script inline (anti-clignotement)
+  et `script.js`.
+
 ## [1.2.2] - 2026-06-04
 
 ### Ajouté

@@ -19,10 +19,8 @@
     <script>
       (function () {
         try {
-          var p = document.documentElement.getAttribute('data-page');
           var s = localStorage.getItem('wiki-sidebar-collapsed');
-          var collapsed = s !== null ? s === 'true' : p !== 'accueil';
-          if (collapsed) document.documentElement.classList.add('is-collapsed');
+          if (s === 'true') document.documentElement.classList.add('is-collapsed');
         } catch (e) {}
       })();
     </script>

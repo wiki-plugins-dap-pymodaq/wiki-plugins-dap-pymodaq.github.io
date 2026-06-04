@@ -97,16 +97,18 @@ function applyCollapsed(collapsed) {
   if (icon) icon.textContent = collapsed ? '»' : '«';
 }
 
-// Détermine l'état initial (préférence mémorisée, sinon défaut selon la page) et
-// câble le bouton de repli. La préférence est conservée dans localStorage.
-function setupCollapse(activePage, sidebar) {
+// État initial de la barre : uniquement piloté par la préférence mémorisée.
+// Par défaut (toute première visite, sans préférence) la barre est OUVERTE ;
+// ensuite l'état suit strictement le dernier choix de l'utilisateur (localStorage),
+// identique sur toutes les pages.
+function setupCollapse(sidebar) {
   let stored = null;
   try {
     stored = localStorage.getItem(SIDEBAR_KEY);
   } catch (e) {
     stored = null;
   }
-  let collapsed = stored !== null ? stored === 'true' : activePage !== 'accueil';
+  let collapsed = stored === 'true';
   applyCollapsed(collapsed);
 
   const btn = sidebar.querySelector('.sidebar-toggle');
@@ -184,7 +186,7 @@ function injectShell() {
   });
 
   // Barre rétractable (mode rail) : état initial + bouton de repli mémorisé.
-  setupCollapse(activePage, sidebar);
+  setupCollapse(sidebar);
 
   loadVersion(base);
 }
@@ -192,7 +194,7 @@ function injectShell() {
 // Version de repli, affichée quand `fetch` est indisponible (ouverture en `file://`,
 // où les navigateurs bloquent la lecture des fichiers locaux). À garder synchronisée
 // avec public/version.json, qui reste la source canonique (site déployé en HTTP + CI).
-const FALLBACK_VERSION = '1.2.2';
+const FALLBACK_VERSION = '1.2.3';
 
 // Affiche la version courante en pied de sidebar : repli immédiat, puis valeur
 // canonique lue dans version.json dès que le site est servi en HTTP.
