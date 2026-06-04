@@ -5,6 +5,14 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.2.2] - 2026-06-04
+
+### Ajouté
+- **Barre réduite (rail)** : deux séparateurs (`.rail-divider`) ajoutés pour structurer
+  l'affichage — sous le bouton d'ouverture et sous le nom du projet. Organisation finale
+  de haut en bas : bouton → séparateur → nom → séparateur → boutons des 3 plugins →
+  grand espace → séparateur + version. Séparateurs visibles uniquement en mode rail.
+
 ## [1.2.1] - 2026-06-04
 
 ### Modifié

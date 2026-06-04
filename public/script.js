@@ -72,8 +72,10 @@ ${items}
       : `<a href="${base}index.html" class="status-badge sidebar-back">← Retour Accueil</a>`;
 
   return `<button class="sidebar-toggle" type="button" aria-label="Réduire le menu" aria-expanded="true"><span class="sidebar-toggle__icon" aria-hidden="true">«</span></button>
+<hr class="rail-divider">
 <a class="logo" href="${base}index.html">DAP<span>Pymodaq</span><br><small>Wiki Plugins · BTS CIEL 2026</small></a>
 ${backHome}
+<hr class="rail-divider">
 <p class="menu-label">Sous-Projets (Repos)</p>
 <ul class="nav-links">
 ${groups}
@@ -190,7 +192,7 @@ function injectShell() {
 // Version de repli, affichée quand `fetch` est indisponible (ouverture en `file://`,
 // où les navigateurs bloquent la lecture des fichiers locaux). À garder synchronisée
 // avec public/version.json, qui reste la source canonique (site déployé en HTTP + CI).
-const FALLBACK_VERSION = '1.2.1';
+const FALLBACK_VERSION = '1.2.2';
 
 // Affiche la version courante en pied de sidebar : repli immédiat, puis valeur
 // canonique lue dans version.json dès que le site est servi en HTTP.
