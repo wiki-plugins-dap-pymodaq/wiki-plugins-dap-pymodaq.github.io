@@ -191,7 +191,7 @@ function injectShell() {
 // Version de repli, affichée quand `fetch` est indisponible (ouverture en `file://`,
 // où les navigateurs bloquent la lecture des fichiers locaux). À garder synchronisée
 // avec public/version.json, qui reste la source canonique (site déployé en HTTP + CI).
-const FALLBACK_VERSION = '1.1.0';
+const FALLBACK_VERSION = '1.2.0';
 
 // Affiche la version courante en pied de sidebar : repli immédiat, puis valeur
 // canonique lue dans version.json dès que le site est servi en HTTP.

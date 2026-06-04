@@ -53,10 +53,11 @@ cliquables vers chaque plugin). État par défaut selon la page (accueil ouverte
 réduites), choix mémorisé en `localStorage`, anti-clignotement par script inline.
 Comportement desktop ; mobile inchangé (tiroir off-canvas). Vérifié en navigateur.
 
-## ⬜ Sprint 6 — Refonte de l'accueil + liens plugins (v1.2.0)
+## ✅ Sprint 6 — Refonte de l'accueil + liens plugins (v1.2.0)
 Réécriture de `index.html` : retrait de la pastille « E6 », nouveau hero clair (H1
 « Wiki Plugins DAP Pymodaq », mention du nom court « DAP Pymodaq »), 3 cartes plugins
-avec liens directs vers les docs, contexte simplifié et sections denses allégées.
+cliquables avec liens directs vers les docs, contexte simplifié et sections denses
+(tableau, équipe) repliées dans des `<details>`. Vérifié en navigateur.
 
 ---
 
@@ -71,4 +72,4 @@ avec liens directs vers les docs, contexte simplifié et sections denses allég�
 | v0.4.0  | Sprint 3 — Qualité code & accessibilité    | ✅     |
 | v1.0.0  | Sprint 4 — SEO, performance, production    | ✅     |
 | v1.1.0  | Sprint 5 — Barre latérale rétractable      | ✅     |
-| v1.2.0  | Sprint 6 — Refonte de l'accueil            | ⬜     |
+| v1.2.0  | Sprint 6 — Refonte de l'accueil            | ✅     |

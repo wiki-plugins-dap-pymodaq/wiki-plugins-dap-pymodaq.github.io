@@ -5,6 +5,19 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.2.0] - 2026-06-04
+
+### Modifié
+- **Refonte complète de l'accueil** (`index.html`), plus simple et orienté utilisateur :
+  - Retrait de la pastille « E6 IR ».
+  - Nouveau hero : H1 **« Wiki Plugins DAP Pymodaq »** + mention du nom de code court
+    **« DAP Pymodaq »** (celui affiché dans la barre de gauche) et de l'objectif
+    (migration LabVIEW → PyMODAQ). Trois informations clés en pastilles.
+  - **3 cartes plugins cliquables** (Arduino, RPi 3, RPi Zero) avec liens directs vers
+    leur documentation — l'utilisateur n'a plus besoin de la barre de gauche.
+  - Contexte « Le projet en bref » condensé ; sections denses (tableau technique,
+    organisation de l'équipe) déplacées dans des blocs **repliables** (`<details>`).
+
 ## [1.1.0] - 2026-06-04
 
 ### Ajouté
