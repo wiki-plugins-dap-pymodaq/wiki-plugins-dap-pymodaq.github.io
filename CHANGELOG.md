@@ -5,6 +5,14 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [0.2.0] - 2026-06-04
+
+### Ajouté
+- **CI/CD** : workflow GitHub Actions (`.github/workflows/deploy.yml`) qui lint le code
+  (ESLint + Stylelint, informatif) puis publie `public/` sur GitHub Pages à chaque push
+  sur `main` (Source : « GitHub Actions »).
+- `.gitattributes` (normalisation des fins de ligne en LF).
+
 ## [0.1.0] - 2026-06-04
 
 ### Ajouté
