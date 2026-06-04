@@ -716,8 +716,15 @@ a.logo {
     .is-collapsed .sidebar-back,
     .is-collapsed .nav-group-title,
     .is-collapsed .nav-sub,
-    .is-collapsed .sidebar-footer {
+    .is-collapsed .sidebar-footer__text {
         display: none;
+    }
+
+    /* Pied de barre conservé en mode rail : seule la version reste (en bas). */
+    .is-collapsed .sidebar-footer {
+        align-self: stretch;
+        padding-top: 14px;
+        text-align: center;
     }
 
     .is-collapsed .nav-rail-icon { display: flex; }

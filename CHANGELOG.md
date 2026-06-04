@@ -5,6 +5,14 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.2.1] - 2026-06-04
+
+### Modifié
+- **Barre latérale réduite (rail)** : le pied de barre est conservé pour **garder la
+  version courante affichée en bas** même en mode réduit ; seul le texte
+  « Lycée Edouard Branly / Session 2026 » est masqué dans ce mode, pour une organisation
+  proche de la barre ouverte.
+
 ## [1.2.0] - 2026-06-04
 
 ### Modifié

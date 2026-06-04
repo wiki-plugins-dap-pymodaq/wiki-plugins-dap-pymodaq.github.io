@@ -79,8 +79,7 @@ ${backHome}
 ${groups}
 </ul>
 <div class="sidebar-footer">
-  Lycée Edouard Branly<br>
-  Session 2026
+  <span class="sidebar-footer__text">Lycée Edouard Branly<br>Session 2026</span>
   <p class="sidebar-version" data-version></p>
 </div>`;
 }
@@ -191,7 +190,7 @@ function injectShell() {
 // Version de repli, affichée quand `fetch` est indisponible (ouverture en `file://`,
 // où les navigateurs bloquent la lecture des fichiers locaux). À garder synchronisée
 // avec public/version.json, qui reste la source canonique (site déployé en HTTP + CI).
-const FALLBACK_VERSION = '1.2.0';
+const FALLBACK_VERSION = '1.2.1';
 
 // Affiche la version courante en pied de sidebar : repli immédiat, puis valeur
 // canonique lue dans version.json dès que le site est servi en HTTP.
