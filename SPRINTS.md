@@ -42,9 +42,9 @@ navigateur. *Note : la validation `npm run lint` (ESLint/Stylelint) nécessite N
 s'exécute en CI ; le CSS pré-existant peut encore générer des avertissements Stylelint à
 traiter quand Node sera disponible.*
 
-## ⬜ Sprint 4 — SEO & performance (v1.0.0)
-Par page : `description`, Open Graph, `canonical`, `theme-color` ; `favicon`,
-`sitemap.xml`, `robots.txt` ; `loading="lazy"` sur les images. Première version
+## ✅ Sprint 4 — SEO & performance (v1.0.0)
+Par page : `description`, Open Graph, `canonical`, `theme-color` ; `favicon.svg`,
+`sitemap.xml`, `robots.txt` ; `loading="lazy"` sur toutes les images. Première version
 « production », tag Git `v1.0.0`.
 
 ---
@@ -58,4 +58,4 @@ Par page : `description`, Open Graph, `canonical`, `theme-color` ; `favicon`,
 | v0.2.0  | Sprint 1 — CI/CD GitHub Actions            | ✅     |
 | v0.3.0  | Sprint 2 — Coquille partagée (DRY)         | ✅     |
 | v0.4.0  | Sprint 3 — Qualité code & accessibilité    | ✅     |
-| v1.0.0  | Sprint 4 — SEO, performance, production    | ⬜     |
+| v1.0.0  | Sprint 4 — SEO, performance, production    | ✅     |

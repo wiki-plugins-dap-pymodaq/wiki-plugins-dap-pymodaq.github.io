@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wiki-plugins-dap-pymodaq.github.io/sitemap.xml

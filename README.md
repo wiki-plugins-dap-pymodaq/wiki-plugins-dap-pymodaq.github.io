@@ -30,7 +30,7 @@ Pages :
   table des matières, menu arborescent responsive)
 - **Polices** : Inter + Fira Code (Google Fonts)
 - **Hébergement** : GitHub Pages
-- **CI/CD** : GitHub Actions (lint + déploiement) — *ajouté au Sprint 1*
+- **CI/CD** : GitHub Actions (lint + déploiement)
 
 Aucune dépendance d'exécution, aucun backend.
 
@@ -94,13 +94,22 @@ npm run format      # Applique le formatage Prettier
 
 ## Déploiement
 
-Le site est publié sur **GitHub Pages** depuis le dossier `public/`. Le déploiement
-automatique via GitHub Actions est mis en place au **Sprint 1** (voir
-[SPRINTS.md](SPRINTS.md)).
+Le déploiement est **automatique** : tout push sur `main` déclenche le workflow
+GitHub Actions ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)) qui
+lint le code puis publie `public/` sur GitHub Pages.
 
-> ⚠️ Tant que le workflow GitHub Actions n'est pas en place, ne pas pousser cette
-> restructuration en `public/` sur une Pages configurée « depuis la racine » : le site
-> renverrait des 404. Sprint 0 et Sprint 1 doivent être déployés ensemble.
+> ℹ️ Prérequis (une seule fois) : dans **Settings → Pages** du dépôt, choisir la
+> source **« GitHub Actions »** (et non « Deploy from a branch »).
+
+## Référencement (SEO)
+
+Chaque page porte un titre et une description propres, des balises **Open Graph**
+(partage sur les réseaux), un lien **canonical**, une couleur de thème (`theme-color`)
+et un `favicon`. Le site fournit un `sitemap.xml` et un `robots.txt`.
+
+> ⚠️ Les URL absolues (Open Graph, canonical, `sitemap.xml`, `robots.txt`) utilisent la
+> base `https://wiki-plugins-dap-pymodaq.github.io`. Si le site est déployé à une autre
+> adresse, adapter cette base dans les pages, `sitemap.xml` et `robots.txt`.
 
 ## Méthode de travail et versionnage
 

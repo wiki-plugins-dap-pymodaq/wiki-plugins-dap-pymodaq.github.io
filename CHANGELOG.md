@@ -5,6 +5,20 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.0.0] - 2026-06-04
+
+Première version « production ».
+
+### Ajouté
+- **SEO** par page : `meta description`, balises **Open Graph** (`og:*`), lien
+  **canonical** (URL absolue) et `theme-color`.
+- **`favicon.svg`** (motif de signal d'acquisition, aux couleurs du thème).
+- **`sitemap.xml`** et **`robots.txt`** (base `https://wiki-plugins-dap-pymodaq.github.io`).
+
+### Modifié
+- **Performance** : `loading="lazy"` ajouté sur toutes les images de contenu.
+- Documentation racine actualisée (déploiement « production », section SEO).
+
 ## [0.4.1] - 2026-06-04
 
 ### Corrigé
