@@ -12,7 +12,7 @@
 
     <nav class="sidebar" data-shell="sidebar"></nav>
 
-    <main class="content">
+    <main class="content" id="contenu">
 
         <header>
             <span class="status-badge">Environnement Logiciel</span>
@@ -29,8 +29,8 @@
                 <p>Si vous ne l'avez pas encore, créez-le et collez ceci à l'intérieur :</p>
                 
                 <div class="terminal-box">
-                    <div class="command-row" style="align-items: flex-start;">
-<pre style="color: #e2e8f0; font-family: 'Fira Code', monospace; font-size: 0.85rem; margin: 0; overflow-x: auto; flex-grow: 1;">Adafruit-Blinka==8.69.0
+                    <div class="command-row align-start">
+<pre class="cmd-text">Adafruit-Blinka==8.69.0
 adafruit-circuitpython-busdevice==5.2.15
 adafruit-circuitpython-connectionmanager==3.1.6
 adafruit-circuitpython-emc2101==1.2.12
@@ -50,34 +50,34 @@ RPi.GPIO==0.7.1
 smbus2==0.6.0
 sysv_ipc==1.2.0
 typing_extensions==4.15.0</pre>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini" style="margin-left: 15px;">Copier</button>
+                        <button class="copy-btn-mini ml-15">Copier</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="creation" style="margin-top: 40px;">
+        <section id="creation" class="mt-40">
             <h2>2. Création de l'environnement virtuel</h2>
             <div class="card">
                 <p>Ouvrez un terminal sur votre Raspberry Pi et placez-vous dans le dossier de votre projet :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>cd /chemin/vers/votre/projet</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
                 
-                <p style="margin-top: 20px;">Créez l'environnement virtuel nommé <code>PY_ENV</code> :</p>
+                <p class="mt-20">Créez l'environnement virtuel nommé <code>PY_ENV</code> :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>python -m venv PY_ENV</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="activation" style="margin-top: 40px;">
+        <section id="activation" class="mt-40">
             <h2>3. Activation de l'environnement (⚠️ Étape cruciale)</h2>
             <div class="card">
                 <p>Avant d'installer quoi que ce soit ou de lancer vos scripts, vous devez toujours activer cet environnement.</p>
@@ -85,50 +85,50 @@ typing_extensions==4.15.0</pre>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>source PY_ENV/bin/activate</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
                 <p><em>(Indice visuel : votre ligne de commande doit maintenant commencer par <code>(PY_ENV)</code>).</em></p>
             </div>
         </section>
 
-        <section id="installation" style="margin-top: 40px;">
+        <section id="installation" class="mt-40">
             <h2>4. Installation des dépendances</h2>
             <div class="card">
                 <p>Maintenant que vous êtes dans l'environnement isolé, mettez à jour l'installateur <code>pip</code>, puis installez toutes les bibliothèques d'un seul coup grâce à notre fichier :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>pip install --upgrade pip</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                     <div class="command-row">
                         <code>pip install -r requirements.txt</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
-                <div class="info-box" style="margin-top: 15px; font-size: 0.9rem;">
+                <div class="info-box mt-15 text-sm">
                     <strong>Note :</strong> L'installation de certains paquets matériels sur Raspberry Pi peut prendre quelques minutes, c'est normal.
                 </div>
             </div>
         </section>
 
-        <section id="verification" style="margin-top: 40px;">
+        <section id="verification" class="mt-40">
             <h2>5. Vérification de l'installation</h2>
             <div class="card">
                 <p>Pour vérifier que votre environnement est parfaitement configuré et identique à l'environnement de référence, tapez :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>pip list</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
                 <p>Vous devriez voir apparaître la liste exacte des paquets (avec les mêmes numéros de version) que ceux présents dans le fichier <code>requirements.txt</code>.</p>
                 
-                <p style="margin-top: 20px;">Pour vérifier que vous utilisez bien le Python de l'environnement virtuel et non celui du Raspberry Pi, tapez :</p>
+                <p class="mt-20">Pour vérifier que vous utilisez bien le Python de l'environnement virtuel et non celui du Raspberry Pi, tapez :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>which python</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
                 <p>Le résultat doit pointer vers le dossier <code>PY_ENV</code> (ex: <code>/home/pi/.../PY_ENV/bin/python</code>).</p>

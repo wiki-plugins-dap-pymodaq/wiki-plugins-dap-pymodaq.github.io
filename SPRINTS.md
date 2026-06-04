@@ -33,11 +33,14 @@ Chemins relatifs paramétrés (`data-base`) et lien actif via `data-page`. Contr
 câblés en `addEventListener`. Résorbe durablement les incohérences de navigation
 (cause des hotfixes v0.0.1). Vérifié en navigateur (accueil + sous-page).
 
-## ⬜ Sprint 3 — Qualité du code & accessibilité (v0.4.0)
-Externalisation des styles inline → classes CSS (`kebab-case`), remplacement des
-handlers `onclick` inline par `addEventListener`, remplacement de `alert()` par un toast
-accessible, skip-link, `aria-label`, navigation clavier, `alt` vérifiés,
-`prefers-reduced-motion`, mise au propre du lint (Stylelint/ESLint sans erreur).
+## ✅ Sprint 3 — Qualité du code & accessibilité (v0.4.0)
+Externalisation des ~93 styles inline → classes CSS (`kebab-case`), remplacement des
+handlers `onclick` inline par une délégation d'événements, remplacement de `alert()` par
+un toast accessible, version affichée en pied de sidebar (`version.json`), skip-link,
+`aria-label`/`aria-current`/`aria-expanded`, `prefers-reduced-motion`. Vérifié en
+navigateur. *Note : la validation `npm run lint` (ESLint/Stylelint) nécessite Node et
+s'exécute en CI ; le CSS pré-existant peut encore générer des avertissements Stylelint à
+traiter quand Node sera disponible.*
 
 ## ⬜ Sprint 4 — SEO & performance (v1.0.0)
 Par page : `description`, Open Graph, `canonical`, `theme-color` ; `favicon`,
@@ -54,5 +57,5 @@ Par page : `description`, Open Graph, `canonical`, `theme-color` ; `favicon`,
 | v0.1.0  | Sprint 0 — Fondations & outillage          | ✅     |
 | v0.2.0  | Sprint 1 — CI/CD GitHub Actions            | ✅     |
 | v0.3.0  | Sprint 2 — Coquille partagée (DRY)         | ✅     |
-| v0.4.0  | Sprint 3 — Qualité code & accessibilité    | ⬜     |
+| v0.4.0  | Sprint 3 — Qualité code & accessibilité    | ✅     |
 | v1.0.0  | Sprint 4 — SEO, performance, production    | ⬜     |

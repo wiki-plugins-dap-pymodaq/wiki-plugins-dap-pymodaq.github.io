@@ -12,7 +12,7 @@
 
     <nav class="sidebar" data-shell="sidebar"></nav>
 
-    <main class="content">
+    <main class="content" id="contenu">
 
         <header>
             <span class="status-badge">Guide Technique Complet</span>
@@ -27,13 +27,13 @@
             
             <div class="card">
                 <p>Pour l'installation du système d'exploitation Raspberry Pi OS, la première étape consiste à flasher l'image du système d'exploitation sur la carte micro SD en utilisant un autre ordinateur (Windows, Mac ou Linux).</p>
-                <p>Pour graver l'image du système d'exploitation Raspberry Pi OS, nous utiliserons le logiciel officiel de Raspberry appelé <strong>Raspberry Pi Imager</strong>. Vous pouvez le télécharger et l'installer à partir du site suivant : <a href="https://www.raspberrypi.com/software/operating-systems/" target="_blank" style="color: var(--primary);">Lien vers la page d'installation Raspberry PI OS</a>.</p>
+                <p>Pour graver l'image du système d'exploitation Raspberry Pi OS, nous utiliserons le logiciel officiel de Raspberry appelé <strong>Raspberry Pi Imager</strong>. Vous pouvez le télécharger et l'installer à partir du site suivant : <a href="https://www.raspberrypi.com/software/operating-systems/" target="_blank" class="text-primary">Lien vers la page d'installation Raspberry PI OS</a>.</p>
                 
                 <p>Une fois le logiciel Raspberry Pi Imager installé sur votre PC, suivez les étapes de configuration demandées.</p>
                 
-                <div class="info-box" style="margin-top: 15px; border-left-color: var(--accent);">
+                <div class="info-box mt-15 info-box--accent">
                     <strong>Attention :</strong> Si vous prévoyez une connexion ultérieure via SSH, il est crucial :
-                    <ul class="custom-list" style="margin-top: 10px;">
+                    <ul class="custom-list mt-10">
                         <li>De noter le <strong>nom d'utilisateur</strong> et le <strong>nom de la machine (hostname)</strong>.</li>
                         <li>D'activer la <strong>connexion SSH</strong> durant la configuration.</li>
                     </ul>
@@ -42,7 +42,7 @@
             </div>
         </section>
 
-        <section id="ssh" style="margin-top: 40px;">
+        <section id="ssh" class="mt-40">
             <h2>2. Connexion via SSH</h2>
             <div class="card">
                 <p>Une fois la carte SD préparée et insérée dans votre Raspberry Pi, allumez l'appareil et connectez-le soit à votre réseau local, soit directement à votre PC.</p>
@@ -53,77 +53,77 @@
                     <span class="comment"># Si vous connaissez l'adresse IP de votre machine :</span>
                     <div class="command-row">
                         <code>ssh votre_nom_d'utilisateur@adresse_ip_de_machine</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                     
                     <span class="comment"># Si vous ne connaissez pas l'adresse IP de votre machine :</span>
                     <div class="command-row">
                         <code>ssh votre_nom_d'utilisateur@nom_de_votre_machine</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
-                <p style="margin-top: 15px;">Après avoir entré la commande, il vous sera demandé de saisir le mot de passe de votre session pour finaliser la connexion.</p>
+                <p class="mt-15">Après avoir entré la commande, il vous sera demandé de saisir le mot de passe de votre session pour finaliser la connexion.</p>
             </div>
         </section>
 
-        <section id="linux" style="margin-top: 40px;">
+        <section id="linux" class="mt-40">
             <h2>3. Configuration de l’OS</h2>
             <div class="card">
                 <p>Dès la première connexion, il est fortement conseillé de mettre à jour votre système afin de prévenir d'éventuelles erreurs. Pour ce faire, utilisez la commande suivante :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>sudo apt update && sudo apt upgrade -y</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
                 
-                <p style="margin-top: 15px;">De plus, si vous le souhaitez, vous avez la possibilité de modifier l'adresse IP de votre Raspberry Pi pour lui en attribuer une statique via l'outil <strong>nmtui</strong>. Il est également possible de changer le nom d'hôte de votre machine avec cet outil.</p>
+                <p class="mt-15">De plus, si vous le souhaitez, vous avez la possibilité de modifier l'adresse IP de votre Raspberry Pi pour lui en attribuer une statique via l'outil <strong>nmtui</strong>. Il est également possible de changer le nom d'hôte de votre machine avec cet outil.</p>
                 
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>sudo nmtui</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="service" style="margin-top: 40px;">
+        <section id="service" class="mt-40">
             <h2>4. Configuration des broches GPIO (Pigpio)</h2>
             <div class="card">
                 <p>Pour utiliser les broches GPIO, vous devez d'abord installer le paquet <code>pigpio</code> à l'aide de la commande :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>sudo apt install pigpio</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
                 
-                <p style="margin-top: 15px;">Pour automatiser le lancement de ce paquet, vous devez ensuite utiliser les commandes :</p>
+                <p class="mt-15">Pour automatiser le lancement de ce paquet, vous devez ensuite utiliser les commandes :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>sudo systemctl enable pigpiod</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                     <div class="command-row">
                         <code>sudo systemctl start pigpiod</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="i2c" style="margin-top: 40px;">
+        <section id="i2c" class="mt-40">
             <h2>5. Activation du service I2C</h2>
             <div class="card">
                 <p>Pour activer le service I2C, nécessaire à la communication avec les composants externes du Raspberry Pi, veuillez utiliser la commande :</p>
                 <div class="terminal-box">
                     <div class="command-row">
                         <code>sudo raspi-config</code>
-                        <button onclick="copyCommand(this)" class="copy-btn-mini">Copier</button>
+                        <button class="copy-btn-mini">Copier</button>
                     </div>
                 </div>
-                <p style="margin-top: 15px;">Dans ce menu, vous devez sélectionner l'option <strong>Interface Options</strong>, puis choisir l'option <strong>I2C</strong>. Vous n'avez plus qu'à accepter pour activer le service.</p>
+                <p class="mt-15">Dans ce menu, vous devez sélectionner l'option <strong>Interface Options</strong>, puis choisir l'option <strong>I2C</strong>. Vous n'avez plus qu'à accepter pour activer le service.</p>
             </div>
         </section>
 

@@ -499,3 +499,134 @@ a.logo {
     text-align: center;
     text-decoration: none;
 }
+
+/* ============================================================
+   Sprint 3 — Utilitaires, composants externalises, a11y, toasts
+   ============================================================ */
+
+/* Espacement / mise en forme (remplacent les styles inline) */
+.mt-10 { margin-top: 10px; }
+.mt-15 { margin-top: 15px; }
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
+.mt-40 { margin-top: 40px; }
+.mb-20 { margin-bottom: 20px; }
+.ml-15 { margin-left: 15px; }
+.text-center { text-align: center; }
+.text-sm { font-size: 0.9rem; }
+.text-primary { color: var(--primary); }
+.align-start { align-items: flex-start; }
+
+.text-note {
+    color: #64748b;
+    font-style: italic;
+}
+
+/* Sous-listes attenuees */
+.sub-list {
+    margin-top: 5px;
+    color: #94a3b8;
+}
+
+.sub-list--disc {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+/* Figures : image + legende */
+.figure-img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.figure-img--placeholder {
+    display: inline-block;
+    min-height: 200px;
+    background: rgb(255 255 255 / 5%);
+}
+
+.figure-caption {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Bloc de commande copiable */
+.cmd-text {
+    flex-grow: 1;
+    margin: 0;
+    overflow-x: auto;
+    color: #e2e8f0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+}
+
+/* Variantes d'info-box */
+.info-box--accent { border-left-color: var(--accent); }
+.info-box--warn { border-left-color: #f59e0b; }
+
+/* Version courante en pied de sidebar */
+.sidebar-version {
+    margin-top: 6px;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+}
+
+/* Lien d'evitement (skip-link) */
+.skip-link {
+    position: absolute;
+    top: -60px;
+    left: 12px;
+    z-index: 2000;
+    padding: 10px 16px;
+    background: var(--primary);
+    color: #0b1120;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 12px;
+}
+
+/* Notifications (toasts) */
+.toast-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    padding: 12px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--success);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 30%);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skip-link,
+    .toast {
+        transition: none;
+    }
+}

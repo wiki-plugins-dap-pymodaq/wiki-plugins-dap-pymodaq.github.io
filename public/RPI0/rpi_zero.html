@@ -12,7 +12,7 @@
 
     <nav class="sidebar" data-shell="sidebar"></nav>
 
-    <main class="content">
+    <main class="content" id="contenu">
 
         <header>
             <span class="status-badge">Hardware & Électronique</span>
@@ -25,14 +25,14 @@
         <section id="intro">
             <p>Ce schéma de câblage illustre l'architecture matérielle d'un système automatisé de contrôle de la température. Le système utilise un microcontrôleur (Raspberry Pi Zero) pour lire les données d'un capteur externe et piloter deux actionneurs de puissance : un système de chauffe et un système de refroidissement.</p>
 
-            <div class="card" style="text-align: center; margin-top: 20px;">
+            <div class="card text-center mt-20">
                 
-                <img src="images/schema-rp0.png" alt="Emplacement pour le schéma de câblage" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); min-height: 200px; display: inline-block;">
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;"><em>Figure 1 : Schéma de l'architecture matérielle</em></p>
+                <img src="images/schema-rp0.png" alt="Emplacement pour le schéma de câblage" class="figure-img figure-img--placeholder">
+                <p class="figure-caption"><em>Figure 1 : Schéma de l'architecture matérielle</em></p>
             </div>
         </section>
 
-        <section id="composants" style="margin-top: 30px;">
+        <section id="composants" class="mt-30">
             <h2>1. Les Composants Principaux</h2>
             <div class="card">
                 <p>Le circuit est divisé en trois grands blocs fonctionnels :</p>
@@ -42,18 +42,18 @@
                     <li><strong>Le module d'acquisition (Zone orange en bas) :</strong> Il s'agit d'une interface de conversion analogique-numérique (CAN/ADC). On y voit les broches AN0, AN1, AN2, AN3 et GND. Il sert à traduire le signal analogique du capteur en données numériques compréhensibles par le Raspberry Pi.</li>
                 </ul>
 
-                <h4 style="margin-top: 20px;">Les actionneurs de puissance (En haut)</h4>
+                <h4 class="mt-20">Les actionneurs de puissance (En haut)</h4>
                 <ul class="custom-list">
                     <li><strong>Générateur 1 (Ventilateur) :</strong> Il représente le circuit de refroidissement. Son alimentation est coupée ou établie par l'un des relais du Raspberry Pi.</li>
                     <li><strong>Générateur 2 (Résistance) :</strong> Il représente l'élément chauffant. Tout comme le ventilateur, son déclenchement est géré de manière isolée par le second relais.</li>
                 </ul>
 
-                <h4 style="margin-top: 20px;">Le circuit de mesure (Bloc gris en bas à droite)</h4>
+                <h4 class="mt-20">Le circuit de mesure (Bloc gris en bas à droite)</h4>
                 <p>Il contient un composant étiqueté "R" (probablement une thermistance ou une sonde de température comme une PT100). Ce circuit génère une variation de tension en fonction de la température ambiante.</p>
             </div>
         </section>
 
-        <section id="fonctionnement" style="margin-top: 40px;">
+        <section id="fonctionnement" class="mt-40">
             <h2>2. Principe de Fonctionnement</h2>
             <div class="card">
                 <p>Le flux d'information et d'énergie dans ce montage suit une boucle de régulation classique (Capteur &rarr; Traitement &rarr; Action) :</p>
@@ -69,7 +69,7 @@
             </div>
         </section>
 
-        <section id="securite" style="margin-top: 40px;">
+        <section id="securite" class="mt-40">
             <h2>3. Note de Conception (Sécurité)</h2>
             <div class="info-box success-box">
                 <strong>Isolation Galvanique :</strong> L'utilisation des relais (dans la zone bleue) est cruciale ici. Elle assure une isolation galvanique : le courant fort nécessaire pour faire tourner le ventilateur ou chauffer la résistance ne traverse jamais la carte du Raspberry Pi, ce qui protège cette dernière des surtensions et des courts-circuits.

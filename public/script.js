@@ -43,12 +43,13 @@ function buildSidebar(base, activePage) {
     const isActiveGroup = group.links.some((link) => link.page === activePage);
     const items = group.links
       .map((link) => {
-        const activeAttr = link.page === activePage ? ' class="active"' : '';
-        return `<li><a href="${base}${link.href}"${activeAttr}>${escapeHtml(link.label)}</a></li>`;
+        const isActive = link.page === activePage;
+        const attrs = isActive ? ' class="active" aria-current="page"' : '';
+        return `<li><a href="${base}${link.href}"${attrs}>${escapeHtml(link.label)}</a></li>`;
       })
       .join('\n');
     return `<li class="nav-group${isActiveGroup ? ' open' : ''}">
-  <a href="#" class="nav-group-title">
+  <a href="#" class="nav-group-title" aria-expanded="${isActiveGroup ? 'true' : 'false'}">
     <span class="nav-arrow">▶</span> ${escapeHtml(group.title)}
   </a>
   <ul class="nav-sub">
@@ -71,10 +72,11 @@ ${groups}
 <div class="sidebar-footer">
   Lycée Edouard Branly<br>
   Session 2026
+  <p class="sidebar-version" data-version></p>
 </div>`;
 }
 
-// Injecte la coquille partagée (bouton menu mobile, overlay, contenu de la sidebar)
+// Injecte la coquille partagée (skip-link, bouton menu mobile, overlay, sidebar)
 // puis câble les interactions (sans handler `onclick` inline).
 function injectShell() {
   const root = document.documentElement;
@@ -83,6 +85,13 @@ function injectShell() {
 
   const sidebar = document.querySelector('[data-shell="sidebar"]');
   if (!sidebar) return;
+
+  // Lien d'évitement (accessibilité) : premier élément focusable de la page.
+  const skip = document.createElement('a');
+  skip.className = 'skip-link';
+  skip.href = '#contenu';
+  skip.textContent = 'Aller au contenu';
+  document.body.prepend(skip);
 
   // Bouton menu (mobile) + overlay, insérés juste avant la sidebar.
   const menuBtn = document.createElement('button');
@@ -95,6 +104,7 @@ function injectShell() {
   overlay.className = 'overlay';
 
   sidebar.before(menuBtn, overlay);
+  sidebar.setAttribute('aria-label', 'Navigation principale');
   sidebar.innerHTML = buildSidebar(base, activePage);
 
   // Ouverture/fermeture du menu en mobile.
@@ -105,16 +115,71 @@ function injectShell() {
   menuBtn.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', toggleMenu);
 
-  // Menu arborescent : un seul groupe ouvert à la fois.
-  sidebar.querySelectorAll('.nav-group-title').forEach((title) => {
+  // Menu arborescent : un seul groupe ouvert à la fois (avec aria-expanded).
+  const titles = sidebar.querySelectorAll('.nav-group-title');
+  titles.forEach((title) => {
     title.addEventListener('click', (event) => {
       event.preventDefault();
       const group = title.closest('.nav-group');
-      const isOpen = group.classList.contains('open');
+      const willOpen = !group.classList.contains('open');
       sidebar.querySelectorAll('.nav-group').forEach((g) => g.classList.remove('open'));
-      if (!isOpen) group.classList.add('open');
+      titles.forEach((t) => t.setAttribute('aria-expanded', 'false'));
+      if (willOpen) {
+        group.classList.add('open');
+        title.setAttribute('aria-expanded', 'true');
+      }
     });
   });
+
+  // Boutons « Copier » : délégation d'événements (plus de onclick inline).
+  document.addEventListener('click', (event) => {
+    const btn = event.target.closest('.copy-btn-mini');
+    if (btn) copyCommand(btn);
+  });
+
+  loadVersion(base);
+}
+
+// Lit public/version.json et affiche la version courante en pied de sidebar.
+function loadVersion(base) {
+  const el = document.querySelector('[data-version]');
+  if (!el) return;
+  fetch(`${base}version.json`)
+    .then((response) => (response.ok ? response.json() : null))
+    .then((data) => {
+      if (data && data.version) el.textContent = `v${data.version}`;
+    })
+    .catch(() => {});
+}
+
+// Affiche une notification temporaire (toast) accessible.
+function showToast(message) {
+  let container = document.querySelector('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    container.setAttribute('aria-live', 'polite');
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.setAttribute('role', 'status');
+  toast.textContent = message;
+  container.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('show'));
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 250);
+  }, 2500);
+}
+
+// Copie le contenu d'un bloc de commande dans le presse-papiers (+ toast de retour).
+function copyCommand(btn) {
+  const commandText = btn.previousElementSibling.innerText;
+  navigator.clipboard.writeText(commandText).then(
+    () => showToast('Commande copiée dans le presse-papiers !'),
+    () => showToast('Échec de la copie.')
+  );
 }
 
 // Génère une table des matières (TOC) sous le lien actif, à partir des <h2>,
@@ -167,15 +232,6 @@ function buildTOC() {
   );
 
   headings.forEach((h) => observer.observe(h));
-}
-
-// Copie le contenu d'un bloc de commande dans le presse-papiers.
-// Toujours appelé via `onclick` inline dans le contenu — sera modernisé au Sprint 3.
-function copyCommand(btn) {
-  const commandText = btn.previousElementSibling.innerText;
-  navigator.clipboard.writeText(commandText).then(() => {
-    alert('Commande copiée dans le presse-papiers !');
-  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
