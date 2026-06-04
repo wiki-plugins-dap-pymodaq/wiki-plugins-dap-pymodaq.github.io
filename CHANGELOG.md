@@ -5,6 +5,15 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [0.4.1] - 2026-06-04
+
+### Corrigé
+- La note de version ne s'affichait pas à l'ouverture en `file://` (double-clic), car
+  `fetch('version.json')` est bloqué par le navigateur pour les fichiers locaux. Ajout
+  d'une **version de repli** (`FALLBACK_VERSION`) affichée immédiatement, puis remplacée
+  par la valeur canonique de `version.json` dès que le site est servi en HTTP (serveur
+  local ou GitHub Pages).
+
 ## [0.4.0] - 2026-06-04
 
 ### Ajouté

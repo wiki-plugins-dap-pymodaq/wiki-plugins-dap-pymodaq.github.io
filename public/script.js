@@ -140,10 +140,17 @@ function injectShell() {
   loadVersion(base);
 }
 
-// Lit public/version.json et affiche la version courante en pied de sidebar.
+// Version de repli, affichée quand `fetch` est indisponible (ouverture en `file://`,
+// où les navigateurs bloquent la lecture des fichiers locaux). À garder synchronisée
+// avec public/version.json, qui reste la source canonique (site déployé en HTTP + CI).
+const FALLBACK_VERSION = '0.4.1';
+
+// Affiche la version courante en pied de sidebar : repli immédiat, puis valeur
+// canonique lue dans version.json dès que le site est servi en HTTP.
 function loadVersion(base) {
   const el = document.querySelector('[data-version]');
   if (!el) return;
+  el.textContent = `v${FALLBACK_VERSION}`;
   fetch(`${base}version.json`)
     .then((response) => (response.ok ? response.json() : null))
     .then((data) => {
