@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr" data-base="../" data-page="arduino-communication">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation PyMoDAQ — Wiki Plugins DAP Pymodaq</title>
+    <meta name="description" content="Notice : installation de PyMoDAQ et du plugin Arduino sur Windows — pour utilisateur et pour développeur.">
+    <meta name="author" content="BTS CIEL — Lycée Edouard Branly">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="canonical" href="https://wiki-plugins-dap-pymodaq.github.io/Arduino/communication.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Wiki Plugins DAP Pymodaq">
+    <meta property="og:title" content="Installation PyMoDAQ — Wiki Plugins DAP Pymodaq">
+    <meta property="og:description" content="Notice : installation de PyMoDAQ et du plugin Arduino sur Windows — pour utilisateur et pour développeur.">
+    <meta property="og:url" content="https://wiki-plugins-dap-pymodaq.github.io/Arduino/communication.html">
+    <meta name="twitter:card" content="summary">
+    <script>
+      (function () {
+        try {
+          var s = localStorage.getItem('wiki-sidebar-collapsed');
+          if (s === 'true') document.documentElement.classList.add('is-collapsed');
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <script src="../script.js" defer></script>
+</head>
+<body>
+
+    <nav class="sidebar" data-shell="sidebar"></nav>
+
+    <main class="content" id="contenu">
+
+        <header>
+            <span class="status-badge">Installation &amp; Configuration</span>
+            <h1>Installation de PyMoDAQ</h1>
+            <p class="lead">Cette notice explique comment installer PyMoDAQ sur Windows ainsi que le plugin Arduino, selon votre profil : utilisateur (TP) ou développeur.</p>
+        </header>
+
+        <div class="info-box mt-15">
+            <strong>Source :</strong> Cette notice s'appuie sur le guide officiel PyMoDAQ — <a href="https://pymodaq.cnrs.fr/en/latest/quick_start/windows.html" target="_blank" rel="noopener" class="text-primary">pymodaq.cnrs.fr — Quick Start Windows</a>.
+        </div>
+
+        <hr class="divider">
+
+        <!-- ═══════════════════════════════════════════════
+             PARTIE UTILISATEUR
+        ════════════════════════════════════════════════ -->
+        <section id="utilisateur">
+            <h2>1. Installation pour Utilisateur (TP)</h2>
+            <div class="card">
+                <p>Cette méthode est destinée aux élèves et enseignants qui souhaitent simplement <strong>utiliser</strong> PyMoDAQ lors des séances de TP, sans modifier le code source.</p>
+
+                <h4 class="mt-20">Étape 1 — Installer Miniforge</h4>
+                <p>Miniforge est le gestionnaire d'environnements Python recommandé par PyMoDAQ. Téléchargez-le depuis le site officiel et exécutez l'installateur en conservant les paramètres par défaut.</p>
+                <div class="info-box mt-10">
+                    Miniforge installe automatiquement <strong>mamba</strong>, <strong>Python</strong> et <strong>pip</strong>. Il remplace Anaconda/Miniconda et est plus rapide pour la création d'environnements.
+                </div>
+
+                <h4 class="mt-20">Étape 2 — Ouvrir le Miniforge Prompt</h4>
+                <p>Après installation, ouvrir le <strong>Miniforge Prompt</strong> depuis le menu Démarrer (pas le terminal Windows classique).</p>
+
+                <h4 class="mt-20">Étape 3 — Créer l'environnement Python</h4>
+                <p>Créer un environnement dédié à PyMoDAQ avec Python 3.11 :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>mamba create -n pymodaq_env python=3.11</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                    <span class="comment"># Confirmer avec y lorsque demandé, puis activer l'environnement :</span>
+                    <div class="command-row">
+                        <code>mamba activate pymodaq_env</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+                <div class="info-box mt-10 info-box--accent">
+                    <strong>Attention :</strong> Choisissez l'<strong>avant-dernière version mineure de Python</strong> pour assurer la compatibilité avec tous les plugins PyMoDAQ. Évitez la toute dernière version.
+                </div>
+
+                <h4 class="mt-20">Étape 4 — Installer PyMoDAQ</h4>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>pip install pymodaq pyqt5</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+
+                <h4 class="mt-20">Étape 5 — Installer le Plugin Arduino</h4>
+                <p>Une fois le plugin publié sur PyPI, l'installation se fait en une commande :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>pip install pymodaq_plugins_dap_arduino</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+                <div class="info-box mt-10 info-box--accent">
+                    <strong>Note :</strong> La publication sur PyPI est en cours. En attendant, référez-vous à la méthode développeur ci-dessous pour installer le plugin depuis le dépôt GitLab.
+                </div>
+
+                <h4 class="mt-20">Étape 6 — Vérifier l'installation</h4>
+                <p>Pour vérifier que PyMoDAQ fonctionne correctement, lancez un module de test :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>daq_move</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+                <p class="mt-10">Sélectionner <strong>Mock</strong> dans la liste déroulante et cliquer sur <strong>Initialization</strong>. Si la fenêtre s'ouvre sans erreur, l'installation est réussie.</p>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════
+             PARTIE DÉVELOPPEUR
+        ════════════════════════════════════════════════ -->
+        <section id="developpeur" class="mt-40">
+            <h2>2. Installation pour Développeur</h2>
+            <div class="card">
+                <p>Cette méthode est destinée aux développeurs qui souhaitent <strong>modifier le code</strong> du plugin ou travailler avec la version de développement de PyMoDAQ.</p>
+
+                <h4 class="mt-20">Étape 1 — Créer l'environnement Conda</h4>
+                <p>Dans un <strong>Anaconda Prompt</strong> (ou Miniforge Prompt) :</p>
+                <div class="terminal-box mt-10">
+                    <span class="comment"># Créer l'environnement avec Python 3.12 :</span>
+                    <div class="command-row">
+                        <code>conda create -n PYMODAQ_PROJET_2026 python=3.12</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                    <span class="comment"># Confirmer avec y, puis activer :</span>
+                    <div class="command-row">
+                        <code>conda activate PYMODAQ_PROJET_2026</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                    <span class="comment"># Installer PyQt6 et PyMoDAQ :</span>
+                    <div class="command-row">
+                        <code>pip install PyQt6</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                    <div class="command-row">
+                        <code>pip install pymodaq</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+
+                <h4 class="mt-20">Étape 2 — Installer le Plugin depuis GitLab</h4>
+                <p>Ouvrir un <strong>PowerShell</strong> dans un dossier de votre choix (ex: <code>D:\</code>) et cloner le dépôt :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>git clone https://XXX-CIEL:&lt;TOKENPERSO&gt;@gitlab.com/projet_pymodaq_2026/pymodaq-plugins-arduino</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+                <p class="mt-10">Puis dans l'<strong>Anaconda Prompt</strong>, installer le plugin en mode éditable (les modifications du code source sont prises en compte immédiatement) :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>d:</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                    <div class="command-row">
+                        <code>cd pymodaq-plugins-arduino</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                    <div class="command-row">
+                        <code>pip install -e .</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+
+                <h4 class="mt-20">Étape 3 — (Optionnel) Installer PyMoDAQ en version dev</h4>
+                <p>Si vous souhaitez travailler avec la version de développement de PyMoDAQ, clonez le dépôt GitHub dans un PowerShell :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>git clone -b dev https://github.com/PyMoDAQ/PyMoDAQ</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+                <p class="mt-10">Puis dans l'<strong>Anaconda Prompt</strong>, installer les sous-paquets dans cet ordre :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>pip install -e pymodaq_utils</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                    <div class="command-row">
+                        <code>pip install -e pymodaq_data</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                    <div class="command-row">
+                        <code>pip install -e pymodaq_gui</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+
+                <h4 class="mt-20">Étape 4 — (Optionnel) Outils supplémentaires</h4>
+                <p>Pour le script de conversion des fichiers de données HDF5 vers CSV :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>pip install h5py numpy</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+
+                <h4 class="mt-20">Étape 5 — (Optionnel) Recréer l'environnement depuis un export</h4>
+                <p>Si un fichier d'export d'environnement <code>Py26env.yml</code> est disponible, vous pouvez recréer exactement le même environnement :</p>
+                <div class="terminal-box mt-10">
+                    <div class="command-row">
+                        <code>conda create --file Py26env.yml</code>
+                        <button class="copy-btn-mini">Copier</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

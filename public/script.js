@@ -10,7 +10,12 @@ const NAV_GROUPS = [
     id: 'arduino',
     title: 'Plugins Arduino',
     code: 'ARD',
-    links: [{ page: 'arduino-presentation', href: 'Arduino/presentation.html', label: 'Présentation' }],
+    links: [
+      { page: 'arduino-presentation', href: 'Arduino/presentation.html', label: 'Présentation' },
+      { page: 'arduino-firmware', href: 'Arduino/firmware.html', label: 'Firmware & Configuration' },
+      { page: 'arduino-communication', href: 'Arduino/communication.html', label: 'Installation PyMoDAQ' },
+      { page: 'arduino-avancement', href: 'Arduino/avancement.html', label: "État d'avancement" },
+    ],
   },
   {
     id: 'rpi3',
@@ -292,7 +297,63 @@ function buildTOC() {
   headings.forEach((h) => observer.observe(h));
 }
 
+// Lightbox : agrandit une figure en popup au clic.
+function initLightbox() {
+  document.querySelectorAll('.figure-img').forEach((img) => {
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
+  });
+}
+
+function openLightbox(src, alt) {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', alt || 'Image agrandie');
+
+  const picture = document.createElement('img');
+  picture.className = 'lightbox-img';
+  picture.src = src;
+  picture.alt = alt || '';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'lightbox-close';
+  closeBtn.setAttribute('aria-label', 'Fermer');
+  closeBtn.innerHTML = '&times;';
+
+  overlay.appendChild(picture);
+  overlay.appendChild(closeBtn);
+  document.body.appendChild(overlay);
+
+  // Empêche le scroll de la page derrière
+  document.body.style.overflow = 'hidden';
+
+  function closeLightbox() {
+    overlay.classList.add('is-closing');
+    overlay.addEventListener('animationend', () => {
+      overlay.remove();
+      document.body.style.overflow = '';
+    }, { once: true });
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+
+  // Clic sur l'overlay (en dehors de l'image) ferme la popup
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeLightbox();
+  });
+
+  // Touche Échap ferme aussi
+  document.addEventListener('keydown', function onKey(e) {
+    if (e.key === 'Escape') {
+      closeLightbox();
+      document.removeEventListener('keydown', onKey);
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   injectShell();
   buildTOC();
+  initLightbox();
 });
