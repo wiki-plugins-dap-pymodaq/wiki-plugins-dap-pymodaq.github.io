@@ -11,6 +11,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://wiki-plugins-dap-pymodaq.github.io/Arduino/firmware.html</loc>
+    <lastmod>2026-06-09</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wiki-plugins-dap-pymodaq.github.io/Arduino/communication.html</loc>
+    <lastmod>2026-06-09</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://wiki-plugins-dap-pymodaq.github.io/Arduino/avancement.html</loc>
+    <lastmod>2026-06-09</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://wiki-plugins-dap-pymodaq.github.io/RPI3B/presentation.html</loc>
     <lastmod>2026-06-04</lastmod>
     <priority>0.8</priority>
