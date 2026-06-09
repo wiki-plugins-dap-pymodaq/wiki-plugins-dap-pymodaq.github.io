@@ -199,7 +199,7 @@ function injectShell() {
 // Version de repli, affichée quand `fetch` est indisponible (ouverture en `file://`,
 // où les navigateurs bloquent la lecture des fichiers locaux). À garder synchronisée
 // avec public/version.json, qui reste la source canonique (site déployé en HTTP + CI).
-const FALLBACK_VERSION = '1.2.5';
+const FALLBACK_VERSION = '1.3.0';
 
 // Affiche la version courante en pied de sidebar : repli immédiat, puis valeur
 // canonique lue dans version.json dès que le site est servi en HTTP.
@@ -297,14 +297,24 @@ function buildTOC() {
   headings.forEach((h) => observer.observe(h));
 }
 
-// Lightbox : agrandit une figure en popup au clic.
+// Lightbox : agrandit une figure en popup au clic (et au clavier : Entrée/Espace).
 function initLightbox() {
   document.querySelectorAll('.figure-img').forEach((img) => {
-    img.addEventListener('click', () => openLightbox(img.src, img.alt));
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('role', 'button');
+    const open = () => openLightbox(img.src, img.alt);
+    img.addEventListener('click', open);
+    img.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        open();
+      }
+    });
   });
 }
 
 function openLightbox(src, alt) {
+  const previouslyFocused = document.activeElement;
   const overlay = document.createElement('div');
   overlay.className = 'lightbox-overlay';
   overlay.setAttribute('role', 'dialog');
@@ -328,12 +338,22 @@ function openLightbox(src, alt) {
   // Empêche le scroll de la page derrière
   document.body.style.overflow = 'hidden';
 
+  function onKey(e) {
+    if (e.key === 'Escape') closeLightbox();
+  }
+
   function closeLightbox() {
+    document.removeEventListener('keydown', onKey);
     overlay.classList.add('is-closing');
-    overlay.addEventListener('animationend', () => {
-      overlay.remove();
-      document.body.style.overflow = '';
-    }, { once: true });
+    overlay.addEventListener(
+      'animationend',
+      () => {
+        overlay.remove();
+        document.body.style.overflow = '';
+        if (previouslyFocused && previouslyFocused.focus) previouslyFocused.focus();
+      },
+      { once: true }
+    );
   }
 
   closeBtn.addEventListener('click', closeLightbox);
@@ -343,13 +363,11 @@ function openLightbox(src, alt) {
     if (e.target === overlay) closeLightbox();
   });
 
-  // Touche Échap ferme aussi
-  document.addEventListener('keydown', function onKey(e) {
-    if (e.key === 'Escape') {
-      closeLightbox();
-      document.removeEventListener('keydown', onKey);
-    }
-  });
+  // Touche Échap ferme aussi (écouteur retiré dans closeLightbox)
+  document.addEventListener('keydown', onKey);
+
+  // Focus sur le bouton de fermeture pour la navigation clavier
+  closeBtn.focus();
 }
 
 document.addEventListener('DOMContentLoaded', () => {

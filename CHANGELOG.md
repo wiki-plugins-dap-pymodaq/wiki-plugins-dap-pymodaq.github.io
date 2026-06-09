@@ -5,6 +5,23 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.3.0] - 2026-06-09
+
+### Ajouté
+- **Documentation Arduino étoffée** (contribution équipe) : nouvelles pages *Firmware &
+  Configuration*, *Installation PyMoDAQ* et *État d'avancement*, refonte de la page de
+  présentation Arduino, le tout intégré à la navigation partagée (`NAV_GROUPS`).
+- **Lightbox** : clic sur une figure (`.figure-img`) pour l'agrandir en superposition
+  (overlay, bouton de fermeture, fermeture au clic extérieur et à Échap).
+
+### Corrigé / Amélioré
+- **Lightbox accessible au clavier** : figures focusables (`tabindex`/`role`), ouverture
+  par Entrée/Espace, focus déplacé sur le bouton de fermeture puis **restauré** à la
+  fermeture.
+- Correction d'une **fuite d'écouteur `keydown`** (désormais retiré quel que soit le mode
+  de fermeture de la lightbox).
+- **`sitemap.xml`** complété avec les trois nouvelles pages Arduino.
+
 ## [1.2.5] - 2026-06-04
 
 ### Corrigé
