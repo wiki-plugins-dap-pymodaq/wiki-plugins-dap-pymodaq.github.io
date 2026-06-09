@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="fr" data-base="../" data-page="arduino-firmware">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flash du Firmware ESP32 — Wiki Plugins DAP Pymodaq</title>
+    <meta
+      name="description"
+      content="Notice : comment installer l'Arduino IDE, configurer le core ESP32 et flasher le firmware Telemetrix4Esp32 sur l'Arduino Nano ESP32."
+    />
+    <meta name="author" content="BTS CIEL — Lycée Edouard Branly" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://wiki-plugins-dap-pymodaq.github.io/Arduino/firmware.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wiki Plugins DAP Pymodaq" />
+    <meta property="og:title" content="Flash du Firmware ESP32 — Wiki Plugins DAP Pymodaq" />
+    <meta
+      property="og:description"
+      content="Notice : installer l'Arduino IDE, configurer le core ESP32 et flasher Telemetrix4Esp32 sur l'Arduino Nano ESP32."
+    />
+    <meta
+      property="og:url"
+      content="https://wiki-plugins-dap-pymodaq.github.io/Arduino/firmware.html"
+    />
+    <meta name="twitter:card" content="summary" />
+    <script>
+      (function () {
+        try {
+          var s = localStorage.getItem('wiki-sidebar-collapsed');
+          if (s === 'true') document.documentElement.classList.add('is-collapsed');
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap"
+      rel="stylesheet"
+    />
+    <script src="../script.js" defer></script>
+  </head>
+  <body>
+    <nav class="sidebar" data-shell="sidebar"></nav>
+
+    <main class="content" id="contenu">
+      <header>
+        <span class="status-badge">Guide Technique Complet</span>
+        <h1>Flash du Firmware sur l'Arduino Nano ESP32</h1>
+        <p class="lead">
+          Cette notice décrit comment préparer l'Arduino IDE, installer les bibliothèques
+          nécessaires et flasher le firmware Telemetrix sur l'Arduino Nano ESP32.
+        </p>
+      </header>
+
+      <div class="info-box mt-15">
+        <strong>Source :</strong> Cette notice s'appuie sur la documentation officielle Telemetrix
+        pour ESP32 rédigée par Alan Yorinks (MrYsLab) —
+        <a
+          href="https://mryslab.github.io/telemetrix-esp32/"
+          target="_blank"
+          rel="noopener"
+          class="text-primary"
+          >mryslab.github.io/telemetrix-esp32</a
+        >. Adaptée au contexte du projet DAP et à l'Arduino Nano ESP32.
+      </div>
+
+      <hr class="divider" />
+
+      <section id="principe">
+        <h2>1. Principe de Fonctionnement</h2>
+        <div class="card">
+          <p>Telemetrix fonctionne selon un modèle <strong>client/serveur</strong> :</p>
+          <ul class="custom-list">
+            <li>
+              <strong>Le firmware (serveur) :</strong> Un sketch C++ fixe flashé une seule fois sur
+              l'ESP32. Il attend des commandes via WiFi et renvoie les données au client.
+            </li>
+            <li>
+              <strong>Le client Python :</strong> Le plugin PyMoDAQ qui envoie des commandes et
+              reçoit les données. Aucune modification du firmware n'est nécessaire pour changer le
+              comportement.
+            </li>
+          </ul>
+          <p class="mt-15">
+            La communication s'effectue via <strong>WiFi (TCP/IP)</strong> sur le port
+            <code>31336</code>. L'ESP32 et l'ordinateur doivent être sur le même réseau local.
+          </p>
+        </div>
+      </section>
+
+      <section id="ide" class="mt-40">
+        <h2>2. Installation de l'Arduino IDE</h2>
+        <div class="card">
+          <p>
+            L'Arduino IDE est nécessaire pour compiler et uploader le firmware sur l'ESP32.
+            Téléchargez la dernière version depuis le site officiel Arduino correspondant à votre
+            système d'exploitation.
+          </p>
+          <div class="info-box mt-15">
+            <strong>Prérequis matériel :</strong> Un câble <strong>USB-C</strong> pour connecter
+            l'Arduino Nano ESP32 à votre ordinateur.
+          </div>
+        </div>
+      </section>
+
+      <section id="core" class="mt-40">
+        <h2>3. Ajouter le Core ESP32</h2>
+        <div class="card">
+          <p>
+            L'Arduino IDE ne supporte pas l'ESP32 nativement. Il faut ajouter le core via le
+            gestionnaire de cartes.
+          </p>
+
+          <ol class="custom-list">
+            <li>Ouvrir l'Arduino IDE.</li>
+            <li>Aller dans <strong>Fichier → Préférences</strong>.</li>
+            <li>
+              Dans le champ <em>« URL de gestionnaire de cartes supplémentaires »</em>, coller l'URL
+              suivante :
+            </li>
+          </ol>
+
+          <div class="terminal-box mt-10">
+            <div class="command-row">
+              <code
+                >https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json</code
+              >
+              <button class="copy-btn-mini">Copier</button>
+            </div>
+          </div>
+
+          <ol class="custom-list mt-20" start="4">
+            <li>Valider avec <strong>OK</strong>.</li>
+            <li>Aller dans <strong>Outils → Type de carte → Gestionnaire de cartes</strong>.</li>
+            <li>
+              Rechercher <code>esp32</code> et installer le paquet
+              <strong>« esp32 by Espressif Systems »</strong>.
+            </li>
+          </ol>
+
+          <div class="info-box mt-15 info-box--accent">
+            <strong>Attention :</strong> Le projet utilise le core ESP32 en version
+            <strong>3.3.7</strong>. Vérifiez la version installée dans le gestionnaire de cartes.
+            Une version différente peut causer des incompatibilités avec le firmware Telemetrix.
+          </div>
+        </div>
+      </section>
+
+      <section id="librairies" class="mt-40">
+        <h2>4. Installer les Bibliothèques</h2>
+        <div class="card">
+          <p>
+            Deux bibliothèques sont nécessaires. Installez-les via
+            <strong>Outils → Gérer les bibliothèques</strong> :
+          </p>
+
+          <h4 class="mt-20">Telemetrix4Esp32</h4>
+          <p>
+            C'est la bibliothèque principale qui contient à la fois le firmware WiFi et BLE.
+            Rechercher <code>Telemetrix4Esp32</code> et installer.
+          </p>
+
+          <div class="info-box mt-10">
+            Une seule bibliothèque suffit pour les deux modes (WiFi et BLE). Le sketch à utiliser se
+            sélectionne ensuite dans les exemples.
+          </div>
+
+          <h4 class="mt-20">Adafruit MAX31865</h4>
+          <p>
+            Nécessaire pour lire la sonde PT100 via SPI. Rechercher
+            <code>Adafruit MAX31865</code> et installer. Accepter l'installation des dépendances si
+            proposé.
+          </p>
+        </div>
+      </section>
+
+      <section id="sketch" class="mt-40">
+        <h2>5. Ouvrir et Configurer le Sketch</h2>
+        <div class="card">
+          <p>
+            Ouvrez le sketch WiFi depuis les exemples :
+            <strong>Fichier → Exemples → Telemetrix4Esp32 → Telemetrix4Esp32WIFI</strong>.
+          </p>
+
+          <h4 class="mt-20">5.1 Renseigner les identifiants WiFi</h4>
+          <p>En début de fichier, renseignez le SSID et le mot de passe du réseau local :</p>
+          <div class="terminal-box mt-10">
+            <div class="command-row align-start">
+              <pre class="cmd-text">
+char ssid[] = "NOM_DU_RESEAU";     // Nom du réseau WiFi
+char password[] = "MOT_DE_PASSE";  // Mot de passe WiFi</pre
+              >
+              <button class="copy-btn-mini ml-15">Copier</button>
+            </div>
+          </div>
+
+          <h4 class="mt-20">5.2 Désactiver le DAC (obligatoire pour le Nano ESP32)</h4>
+          <p>
+            L'Arduino Nano ESP32 est basé sur une puce ESP32-S3 qui ne possède
+            <strong>pas de convertisseur DAC</strong>. La ligne suivante doit absolument être
+            <strong>commentée</strong>, sinon la compilation échoue :
+          </p>
+          <div class="terminal-box mt-10">
+            <div class="command-row">
+              <code>// #define DAC_SUPPORTED 1</code>
+              <button class="copy-btn-mini">Copier</button>
+            </div>
+          </div>
+
+          <div class="info-box mt-15 info-box--accent">
+            <strong>Attention :</strong> Sans ce commentaire, la compilation se terminera en erreur.
+            Vérifiez que la ligne commence bien par <code>//</code>.
+          </div>
+
+          <h4 class="mt-20">5.3 Intégrer la librairie Adafruit MAX31865</h4>
+          <p>
+            Le firmware Telemetrix de base ne gère pas nativement le MAX31865. Il faut inclure la
+            bibliothèque Adafruit dans le sketch pour permettre la lecture de la sonde PT100 :
+          </p>
+          <div class="terminal-box mt-10">
+            <div class="command-row">
+              <code>#include &lt;Adafruit_MAX31865.h&gt;</code>
+              <button class="copy-btn-mini">Copier</button>
+            </div>
+          </div>
+
+          <div class="info-box mt-15 info-box--accent">
+            <strong>Note :</strong> Mohamed EL MOKHTARI a développé un
+            <strong>firmware modifié</strong> intégrant nativement le support du MAX31865. Cette
+            version sera documentée ici prochainement.
+          </div>
+        </div>
+      </section>
+
+      <section id="upload" class="mt-40">
+        <h2>6. Sélectionner la Carte et Uploader</h2>
+        <div class="card">
+          <ol class="custom-list">
+            <li>Connecter l'Arduino Nano ESP32 à l'ordinateur via <strong>USB-C</strong>.</li>
+            <li>
+              Aller dans <strong>Outils → Type de carte → esp32</strong> et sélectionner
+              <strong>Arduino Nano ESP32</strong>.
+            </li>
+            <li>
+              Aller dans <strong>Outils → Port</strong> et sélectionner le port COM correspondant à
+              la carte.
+            </li>
+            <li>Cliquer sur le bouton <strong>Upload ▶</strong>.</li>
+            <li>Attendre la fin de la compilation et du transfert.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="ip" class="mt-40">
+        <h2>7. Récupérer l'Adresse IP de l'ESP32</h2>
+        <div class="card">
+          <p>
+            Une fois le firmware uploadé, l'ESP32 se connecte automatiquement au réseau WiFi. Pour
+            connaître son adresse IP :
+          </p>
+          <ol class="custom-list">
+            <li>Aller dans <strong>Outils → Moniteur Série</strong>.</li>
+            <li>Régler la vitesse à <strong>115200 bauds</strong>.</li>
+            <li>L'ESP32 affiche son adresse IP après connexion WiFi.</li>
+          </ol>
+
+          <div class="text-center mt-20">
+            <p class="figure-caption">
+              <em>image à mettre — Capture du Moniteur Série affichant l'adresse IP</em>
+            </p>
+          </div>
+
+          <div class="info-box mt-15 info-box--accent">
+            <strong>Important :</strong> Notez cette adresse IP. Elle devra être renseignée dans le
+            fichier <code>config_arduino.toml</code> pour que le plugin PyMoDAQ puisse se connecter
+            à l'ESP32.
+          </div>
+        </div>
+      </section>
+
+      <section id="verification" class="mt-40">
+        <h2>8. Vérifier la Connexion Réseau</h2>
+        <div class="card">
+          <p>
+            Pour s'assurer que l'ESP32 est joignable depuis l'ordinateur, ouvrez un terminal et
+            effectuez un ping :
+          </p>
+          <div class="terminal-box mt-10">
+            <div class="command-row">
+              <code>ping 192.168.X.X</code>
+              <button class="copy-btn-mini">Copier</button>
+            </div>
+          </div>
+          <p class="mt-10">
+            Si vous recevez des réponses, l'ESP32 est correctement connecté au réseau. Vous pouvez
+            passer à la page suivante pour installer le plugin PyMoDAQ.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
