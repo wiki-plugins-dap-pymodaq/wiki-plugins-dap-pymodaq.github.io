@@ -95,25 +95,63 @@
 
           <h4 class="mt-20">Créer un nouveau preset</h4>
           <ol class="custom-list">
-            <li>Cliquer sur <strong>Preset Modeq</strong> dans le dashboard</li>
+            <li>Cliquer sur <strong>Preset Mode</strong> dans le dashboard.</li>
             <li>Cliquer sur <strong>« New preset »</strong>.</li>
+            <div class="text-center mb-20">
+              <img
+                loading="lazy"
+                src="images/pymodaq_preset.png"
+                alt="dashboard"
+                class="figure-img"
+              />
+            </div>
             <li>Donner un nom au preset (ex : <code>arduino_tp</code>).</li>
             <li>
               Ajouter un module <strong>DAQ_Move</strong> et sélectionner le plugin
               <code>FanHeater</code> :
               <ul class="sub-list">
                 <li>Ce module gère le pilotage du ventilateur et du chauffage en mode multiaxe.</li>
+                <li>
+                  Dans les paramètres du module, renseigner l'<strong
+                    >adresse IP du contrôleur Arduino</strong
+                  >.
+                </li>
+                <li>
+                  Vérifier le <strong>Controller ID</strong> — ce premier module sera défini comme
+                  <span class="badge badge-master">Master</span>.
+                </li>
               </ul>
             </li>
             <li>
-              Ajouter un module <strong>DAQ_Viewer</strong> et sélectionner le plugin
-              <code>MAX31865</code> :
+              Ajouter un module <strong>DAQ_Viewer</strong> et sélectionner
+              <strong>l'un des deux</strong>
+              plugins selon le capteur utilisé :
               <ul class="sub-list">
-                <li>Ce module affiche la température lue par la sonde PT100.</li>
+                <li>
+                  <code>MAX31865</code> — pour une sonde <strong>PT100</strong> (résistive, haute
+                  précision).
+                </li>
+                <li>
+                  <code>ADS1115</code> — pour un capteur de température analogique via convertisseur
+                  <strong>ADC 16 bits</strong>.
+                </li>
+                <li>Renseigner la <strong>même adresse IP</strong> que celle du DAQ_Move.</li>
+                <li>
+                  Vérifier que le <strong>Controller ID est identique</strong> à celui du DAQ_Move —
+                  ce module sera en mode <span class="badge badge-slave">Slave</span>.
+                </li>
               </ul>
             </li>
             <li>Sauvegarder le preset.</li>
           </ol>
+
+          <div class="alert alert-warning mt-20">
+            <strong>Important :</strong> un seul module peut être défini comme
+            <strong>Master</strong>. Tous les autres modules partageant le même contrôleur doivent
+            obligatoirement être configurés en <strong>Slave</strong>. Assurez-vous également que
+            tous les modules utilisent la <strong>même adresse IP</strong> et le
+            <strong>même Controller ID</strong>.
+          </div>
 
           <div class="text-center mt-20">
             <p class="figure-caption">
