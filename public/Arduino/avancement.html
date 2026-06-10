@@ -1,20 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr" data-base="../" data-page="arduino-avancement">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Utilisation PyMoDAQ Arduino — Wiki Plugins DAP Pymodaq</title>
-    <meta name="description" content="Notice : comment utiliser PyMoDAQ avec le plugin Arduino Nano ESP32 — création du preset, pilotage du ventilateur et du chauffage, acquisition de température.">
-    <meta name="author" content="BTS CIEL — Lycée Edouard Branly">
-    <meta name="theme-color" content="#0f172a">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-    <link rel="canonical" href="https://wiki-plugins-dap-pymodaq.github.io/Arduino/avancement.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Wiki Plugins DAP Pymodaq">
-    <meta property="og:title" content="Utilisation PyMoDAQ Arduino — Wiki Plugins DAP Pymodaq">
-    <meta property="og:description" content="Notice : comment utiliser PyMoDAQ avec le plugin Arduino Nano ESP32 — création du preset, pilotage et acquisition.">
-    <meta property="og:url" content="https://wiki-plugins-dap-pymodaq.github.io/Arduino/avancement.html">
-    <meta name="twitter:card" content="summary">
+    <meta
+      name="description"
+      content="Notice : comment utiliser PyMoDAQ avec le plugin Arduino Nano ESP32 — création du preset, pilotage du ventilateur et du chauffage, acquisition de température."
+    />
+    <meta name="author" content="BTS CIEL — Lycée Edouard Branly" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link
+      rel="canonical"
+      href="https://wiki-plugins-dap-pymodaq.github.io/Arduino/avancement.html"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wiki Plugins DAP Pymodaq" />
+    <meta property="og:title" content="Utilisation PyMoDAQ Arduino — Wiki Plugins DAP Pymodaq" />
+    <meta
+      property="og:description"
+      content="Notice : comment utiliser PyMoDAQ avec le plugin Arduino Nano ESP32 — création du preset, pilotage et acquisition."
+    />
+    <meta
+      property="og:url"
+      content="https://wiki-plugins-dap-pymodaq.github.io/Arduino/avancement.html"
+    />
+    <meta name="twitter:card" content="summary" />
     <script>
       (function () {
         try {
@@ -23,142 +35,203 @@
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="../style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap"
+      rel="stylesheet"
+    />
     <script src="../script.js" defer></script>
-</head>
-<body>
-
+  </head>
+  <body>
     <nav class="sidebar" data-shell="sidebar"></nav>
 
     <main class="content" id="contenu">
+      <header>
+        <span class="status-badge">Exécution &amp; Utilisation</span>
+        <h1>Utilisation de PyMoDAQ avec le Plugin Arduino</h1>
+        <p class="lead">
+          Cette notice explique comment lancer PyMoDAQ, créer un preset pour le plugin Arduino,
+          piloter le ventilateur et le chauffage, et acquérir la température via la sonde PT100.
+        </p>
+      </header>
 
-        <header>
-            <span class="status-badge">Exécution &amp; Utilisation</span>
-            <h1>Utilisation de PyMoDAQ avec le Plugin Arduino</h1>
-            <p class="lead">Cette notice explique comment lancer PyMoDAQ, créer un preset pour le plugin Arduino, piloter le ventilateur et le chauffage, et acquérir la température via la sonde PT100.</p>
-        </header>
+      <hr class="divider" />
 
-        <hr class="divider">
+      <section id="lancement">
+        <h2>1. Lancer le Dashboard PyMoDAQ</h2>
+        <div class="card">
+          <p>
+            Assurez-vous que l'Arduino Nano ESP32 est
+            <strong>allumé et connecté au réseau WiFi</strong> avant de lancer PyMoDAQ.
+          </p>
+          <p>Activez votre environnement virtuel, puis lancez le Dashboard :</p>
 
-        <section id="lancement">
-            <h2>1. Lancer le Dashboard PyMoDAQ</h2>
-            <div class="card">
-                <p>Assurez-vous que l'Arduino Nano ESP32 est <strong>allumé et connecté au réseau WiFi</strong> avant de lancer PyMoDAQ.</p>
-                <p>Activez votre environnement virtuel, puis lancez le Dashboard :</p>
-
-                <div class="terminal-box mt-10">
-                    <span class="comment"># Activer l'environnement virtuel (Windows) :</span>
-                    <div class="command-row">
-                        <code>.\venv\Scripts\activate</code>
-                        <button class="copy-btn-mini">Copier</button>
-                    </div>
-                    <span class="comment"># Lancer le Dashboard PyMoDAQ :</span>
-                    <div class="command-row">
-                        <code>dashboard</code>
-                        <button class="copy-btn-mini">Copier</button>
-                    </div>
-                </div>
-
-                <div class="text-center mt-20">
-                    <p class="figure-caption"><em>image à mettre — Capture du Dashboard PyMoDAQ au démarrage</em></p>
-                </div>
+          <div class="terminal-box mt-10">
+            <span class="comment"># Activer l'environnement virtuel (Windows) :</span>
+            <div class="command-row">
+              <code>.\venv\Scripts\activate</code>
+              <button class="copy-btn-mini">Copier</button>
             </div>
-        </section>
-
-        <section id="preset" class="mt-40">
-            <h2>2. Créer ou Charger un Preset</h2>
-            <div class="card">
-                <p>Au démarrage, le Dashboard vous demande de créer ou charger un <strong>preset</strong> : un fichier de configuration qui liste les modules à utiliser pour votre dispositif.</p>
-
-                <h4 class="mt-20">Créer un nouveau preset</h4>
-                <ol class="custom-list">
-                    <li>Cliquer sur <strong>« New preset »</strong> dans le Dashboard.</li>
-                    <li>Donner un nom au preset (ex : <code>arduino_tp</code>).</li>
-                    <li>
-                        Ajouter un module <strong>DAQ_Move</strong> et sélectionner le plugin <code>FanHeater</code> :
-                        <ul class="sub-list">
-                            <li>Ce module gère le pilotage du ventilateur et du chauffage en mode multiaxe.</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Ajouter un module <strong>DAQ_Viewer</strong> et sélectionner le plugin <code>MAX31865</code> :
-                        <ul class="sub-list">
-                            <li>Ce module affiche la température lue par la sonde PT100.</li>
-                        </ul>
-                    </li>
-                    <li>Sauvegarder le preset.</li>
-                </ol>
-
-                <div class="text-center mt-20">
-                    <p class="figure-caption"><em>image à mettre — Capture de la fenêtre de création de preset</em></p>
-                </div>
-
-                <h4 class="mt-20">Charger un preset existant</h4>
-                <p>Si un preset a déjà été configuré par l'enseignant, cliquer sur <strong>« Load preset »</strong> et sélectionner le fichier <code>.xml</code> correspondant.</p>
+            <span class="comment"># Lancer le Dashboard PyMoDAQ :</span>
+            <div class="command-row">
+              <code>dashboard</code>
+              <button class="copy-btn-mini">Copier</button>
             </div>
-        </section>
+          </div>
 
-        <section id="pilotage" class="mt-40">
-            <h2>3. Piloter le Ventilateur et le Chauffage</h2>
-            <div class="card">
-                <p>Une fois le preset chargé, le module <strong>DAQ_Move FanHeater</strong> apparaît dans le Dashboard. Il expose deux axes :</p>
-                <ul class="custom-list">
-                    <li><strong>Axe Chauffage (Master) :</strong> Commande le chauffage de 0 % à 100 %. C'est cet axe qui initialise la connexion avec l'ESP32.</li>
-                    <li><strong>Axe Ventilateur (Slave) :</strong> Commande le ventilateur de 0 % à 100 %. Il partage la connexion ouverte par le Master.</li>
-                </ul>
+          <div class="text-center mb-20">
+            <img loading="lazy" src="images/dashboard.png" alt="dashboard" class="figure-img" />
+          </div>
+        </div>
+      </section>
 
-                <h4 class="mt-20">Envoyer une consigne</h4>
-                <ol class="custom-list">
-                    <li>Saisir la valeur souhaitée en pourcentage dans le champ de l'axe correspondant (ex : <code>75</code> pour 75 %).</li>
-                    <li>Appuyer sur <strong>Entrée</strong> ou cliquer sur <strong>« Move »</strong>.</li>
-                    <li>Le plugin convertit automatiquement la valeur en signal PWM (0–255) et l'envoie à l'ESP32 via Telemetrix.</li>
-                </ol>
+      <section id="preset" class="mt-40">
+        <h2>2. Créer ou Charger un Preset</h2>
+        <div class="card">
+          <p>
+            Au démarrage, le Dashboard vous demande de créer ou charger un <strong>preset</strong> :
+            un fichier de configuration qui liste les modules à utiliser pour votre dispositif.
+          </p>
 
-                <div class="text-center mt-20">
-                    <p class="figure-caption"><em>image à mettre — Capture du module DAQ_Move FanHeater dans PyMoDAQ</em></p>
-                </div>
+          <h4 class="mt-20">Créer un nouveau preset</h4>
+          <ol class="custom-list">
+            <li>Cliquer sur <strong>Preset Modeq</strong> dans le dashboard</li>
+            <li>Cliquer sur <strong>« New preset »</strong>.</li>
+            <li>Donner un nom au preset (ex : <code>arduino_tp</code>).</li>
+            <li>
+              Ajouter un module <strong>DAQ_Move</strong> et sélectionner le plugin
+              <code>FanHeater</code> :
+              <ul class="sub-list">
+                <li>Ce module gère le pilotage du ventilateur et du chauffage en mode multiaxe.</li>
+              </ul>
+            </li>
+            <li>
+              Ajouter un module <strong>DAQ_Viewer</strong> et sélectionner le plugin
+              <code>MAX31865</code> :
+              <ul class="sub-list">
+                <li>Ce module affiche la température lue par la sonde PT100.</li>
+              </ul>
+            </li>
+            <li>Sauvegarder le preset.</li>
+          </ol>
 
-                <div class="info-box mt-15">
-                    <strong>Exemple :</strong> Une consigne de 75 % correspond à une valeur PWM de <code>191</code> (<code>int(75 × 255 / 100)</code>), appliquée sur la broche GPIO correspondante de l'ESP32.
-                </div>
-            </div>
-        </section>
+          <div class="text-center mt-20">
+            <p class="figure-caption">
+              <em>image à mettre — Capture de la fenêtre de création de preset</em>
+            </p>
+          </div>
 
-        <section id="acquisition" class="mt-40">
-            <h2>4. Acquérir la Température (PT100)</h2>
-            <div class="card">
-                <p>Le module <strong>DAQ_Viewer MAX31865</strong> lit en continu la température mesurée par la sonde PT100 via le module MAX31865 connecté en SPI sur l'ESP32.</p>
+          <h4 class="mt-20">Charger un preset existant</h4>
+          <p>
+            Si un preset a déjà été configuré par l'enseignant, cliquer sur
+            <strong>« Load preset »</strong> et sélectionner le fichier
+            <code>.xml</code> correspondant.
+          </p>
+        </div>
+      </section>
 
-                <ol class="custom-list">
-                    <li>Cliquer sur <strong>« Start »</strong> dans le module DAQ_Viewer.</li>
-                    <li>La température s'affiche en temps réel sous forme de graphique dans le Dashboard.</li>
-                    <li>Pour sauvegarder les données, activer le module <strong>Log Data</strong> natif de PyMoDAQ.</li>
-                </ol>
+      <section id="pilotage" class="mt-40">
+        <h2>3. Piloter le Ventilateur et le Chauffage</h2>
+        <div class="card">
+          <p>
+            Une fois le preset chargé, le module <strong>DAQ_Move FanHeater</strong> apparaît dans
+            le Dashboard. Il expose deux axes :
+          </p>
+          <ul class="custom-list">
+            <li>
+              <strong>Axe Chauffage (Master) :</strong> Commande le chauffage de 0 % à 100 %. C'est
+              cet axe qui initialise la connexion avec l'ESP32.
+            </li>
+            <li>
+              <strong>Axe Ventilateur (Slave) :</strong> Commande le ventilateur de 0 % à 100 %. Il
+              partage la connexion ouverte par le Master.
+            </li>
+          </ul>
 
-                <div class="text-center mt-20">
-                    <p class="figure-caption"><em>image à mettre — Capture du module DAQ_Viewer MAX31865 avec le graphique de température</em></p>
-                </div>
+          <h4 class="mt-20">Envoyer une consigne</h4>
+          <ol class="custom-list">
+            <li>
+              Saisir la valeur souhaitée en pourcentage dans le champ de l'axe correspondant (ex :
+              <code>75</code> pour 75 %).
+            </li>
+            <li>Appuyer sur <strong>Entrée</strong> ou cliquer sur <strong>« Move »</strong>.</li>
+            <li>
+              Le plugin convertit automatiquement la valeur en signal PWM (0–255) et l'envoie à
+              l'ESP32 via Telemetrix.
+            </li>
+          </ol>
 
-                <div class="info-box mt-15 info-box--accent">
-                    <strong>Note :</strong> La conversion de la valeur brute SPI en température (°C) est en cours de validation sur le dispositif physique. Si la valeur affichée semble incorrecte, vérifiez le câblage du module MAX31865 et la configuration des broches SPI dans le fichier TOML.
-                </div>
-            </div>
-        </section>
+          <div class="text-center mt-20">
+            <p class="figure-caption">
+              <em>image à mettre — Capture du module DAQ_Move FanHeater dans PyMoDAQ</em>
+            </p>
+          </div>
 
-        <section id="sauvegarde" class="mt-40">
-            <h2>5. Sauvegarder les Données</h2>
-            <div class="card">
-                <p>PyMoDAQ intègre nativement un module de sauvegarde des données appelé <strong>Log Data</strong>. Pour l'activer :</p>
-                <ol class="custom-list">
-                    <li>Dans le Dashboard, cocher l'option <strong>« Log data »</strong> avant de lancer l'acquisition.</li>
-                    <li>Choisir le répertoire de sauvegarde.</li>
-                    <li>Les données sont enregistrées au format <strong>HDF5</strong> (.h5) et peuvent être analysées avec PyMoDAQ ou tout outil compatible (Python, MATLAB…).</li>
-                </ol>
-            </div>
-        </section>
+          <div class="info-box mt-15">
+            <strong>Exemple :</strong> Une consigne de 75 % correspond à une valeur PWM de
+            <code>191</code> (<code>int(75 × 255 / 100)</code>), appliquée sur la broche GPIO
+            correspondante de l'ESP32.
+          </div>
+        </div>
+      </section>
 
+      <section id="acquisition" class="mt-40">
+        <h2>4. Acquérir la Température (PT100)</h2>
+        <div class="card">
+          <p>
+            Le module <strong>DAQ_Viewer MAX31865</strong> lit en continu la température mesurée par
+            la sonde PT100 via le module MAX31865 connecté en SPI sur l'ESP32.
+          </p>
+
+          <ol class="custom-list">
+            <li>Cliquer sur <strong>« Start »</strong> dans le module DAQ_Viewer.</li>
+            <li>
+              La température s'affiche en temps réel sous forme de graphique dans le Dashboard.
+            </li>
+            <li>
+              Pour sauvegarder les données, activer le module <strong>Log Data</strong> natif de
+              PyMoDAQ.
+            </li>
+          </ol>
+
+          <div class="text-center mt-20">
+            <p class="figure-caption">
+              <em
+                >image à mettre — Capture du module DAQ_Viewer MAX31865 avec le graphique de
+                température</em
+              >
+            </p>
+          </div>
+
+          <div class="info-box mt-15 info-box--accent">
+            <strong>Note :</strong> La conversion de la valeur brute SPI en température (°C) est en
+            cours de validation sur le dispositif physique. Si la valeur affichée semble incorrecte,
+            vérifiez le câblage du module MAX31865 et la configuration des broches SPI dans le
+            fichier TOML.
+          </div>
+        </div>
+      </section>
+
+      <section id="sauvegarde" class="mt-40">
+        <h2>5. Sauvegarder les Données</h2>
+        <div class="card">
+          <p>
+            PyMoDAQ intègre nativement un module de sauvegarde des données appelé
+            <strong>Log Data</strong>. Pour l'activer :
+          </p>
+          <ol class="custom-list">
+            <li>
+              Dans le Dashboard, cocher l'option <strong>« Log data »</strong> avant de lancer
+              l'acquisition.
+            </li>
+            <li>Choisir le répertoire de sauvegarde.</li>
+            <li>
+              Les données sont enregistrées au format <strong>HDF5</strong> (.h5) et peuvent être
+              analysées avec PyMoDAQ ou tout outil compatible (Python, MATLAB…).
+            </li>
+          </ol>
+        </div>
+      </section>
     </main>
-
-</body>
+  </body>
 </html>
