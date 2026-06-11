@@ -23,8 +23,9 @@ avec **2 plugins** (Arduino + Raspberry unifié).
 - ✅ **Sprint 9 — Doc Arduino (v1.6.0)** : pages du coéquipier préservées, traduites EN et
   corrigées depuis les sources (instruments, setup, firmware, installation, usage).
   6 pages `.rst` + 14 images récupérées, build sans warning, rendu vérifié.
-- ⬜ **Sprint 10 — Polish (v1.7.0)** : redirections des anciennes URLs (rediraffe), favicon,
-  logo, recherche/SEO, relecture.
+- ✅ **Sprint 10 — Polish (v1.7.0)** : logo + favicon, SEO (canonical via `html_baseurl`,
+  `sitemap.xml` via `sphinx-sitemap`, `robots.txt`). Redirections des anciennes URLs
+  retirées (collision de casse `Arduino/` vs `arduino/`). Build sans warning, vérifié.
 - ⬜ **Sprint 11 — Finalisation (v2.0.0)** : docs racine, revue, tag production.
 
 > L'historique ci-dessous documente la version **vanilla** (v0.0.1 → v1.3.0), conservée

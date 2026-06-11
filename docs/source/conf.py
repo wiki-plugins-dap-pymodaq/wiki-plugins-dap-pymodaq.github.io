@@ -7,14 +7,15 @@ project = 'DAP Pymodaq Plugins'
 author = 'BTS CIEL - Lycee Edouard Branly'
 copyright = '2026, BTS CIEL - Lycee Edouard Branly'
 
-version = '1.6.0'
-release = '1.6.0'
+version = '1.7.0'
+release = '1.7.0'
 
 language = 'en'
 
 # -- General configuration ---------------------------------------------------
 extensions = [
     'sphinx_design',          # cards / grids / tabs (used by the official docs)
+    'sphinx_sitemap',          # generates sitemap.xml
     'sphinx.ext.githubpages',  # writes .nojekyll for GitHub Pages
 ]
 
@@ -26,5 +27,13 @@ html_theme_options = {
     'navigation_depth': 4,
     'collapse_navigation': False,
 }
+html_logo = '_static/logo.svg'
+html_favicon = '_static/favicon.svg'
 html_static_path = ['_static']
 html_css_files = ['css/custom.css']
+html_extra_path = ['_extra']
+
+# -- SEO ---------------------------------------------------------------------
+# Canonical URLs (added by the theme from html_baseurl) and sitemap generation.
+html_baseurl = 'https://wiki-plugins-dap-pymodaq.github.io/'
+sitemap_url_scheme = '{link}'

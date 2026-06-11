@@ -5,6 +5,20 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.7.0] - 2026-06-11
+
+### Ajouté
+- **Identité visuelle** : logo (`logo.svg`) dans la barre latérale et favicon
+  (`favicon.svg`), aux couleurs du thème.
+- **SEO** : liens **canonical** (via `html_baseurl`), **`sitemap.xml`** (extension
+  `sphinx-sitemap`) et **`robots.txt`**.
+
+### Note
+- Des redirections des anciennes URLs vanilla (`/Arduino/…`, `/RPI3B/…`, `/RPI0/…`) ont
+  été envisagées puis retirées : le préfixe `Arduino/` (majuscule) entre en collision avec
+  le nouveau `arduino/` (minuscule) sur les systèmes insensibles à la casse, rendant le
+  build **local** non fiable. À réintroduire via une méthode sûre si besoin.
+
 ## [1.6.0] - 2026-06-11
 
 ### Ajouté
