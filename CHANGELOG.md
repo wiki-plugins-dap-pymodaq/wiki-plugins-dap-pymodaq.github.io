@@ -5,6 +5,20 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [2.0.0] - 2026-06-11
+
+Première version **« production »** du wiki Sphinx (refonte complète, développée sur la
+branche `dev`).
+
+### Résumé de la refonte v2.0
+- Wiki entièrement **re-plateformé en Sphinx** (thème `sphinx_rtd_theme`, identique à la
+  documentation officielle PyMoDAQ), rédigé en **anglais**.
+- **Deux plugins** documentés depuis les sources : **Raspberry** (unifie les anciens
+  Raspberry Pi 3 et Pi Zero) et **Arduino**.
+- Identité visuelle (logo, favicon), SEO (canonical, `sitemap.xml`, `robots.txt`) et CI
+  GitHub Actions (build Sphinx → GitHub Pages).
+- Relecture finale et cohérence vérifiées : build **sans warning**, 12 pages.
+
 ## [1.7.0] - 2026-06-11
 
 ### Ajouté

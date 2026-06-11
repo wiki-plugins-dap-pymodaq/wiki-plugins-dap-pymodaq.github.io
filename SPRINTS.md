@@ -8,7 +8,7 @@ Légende : ✅ terminé · 🚧 en cours · ⬜ à faire
 
 ---
 
-## 🔄 Refonte « v2.0 » — Re-plateformage Sphinx (en cours)
+## 🔄 Refonte « v2.0 » — Re-plateformage Sphinx (terminée — v2.0.0)
 
 Direction validée le 2026-06-11 : le wiki passe d'un site **vanilla** à un projet
 **Sphinx** au thème officiel PyMoDAQ (`sphinx_rtd_theme`), rédigé en **anglais** (`.rst`),
@@ -26,7 +26,9 @@ avec **2 plugins** (Arduino + Raspberry unifié).
 - ✅ **Sprint 10 — Polish (v1.7.0)** : logo + favicon, SEO (canonical via `html_baseurl`,
   `sitemap.xml` via `sphinx-sitemap`, `robots.txt`). Redirections des anciennes URLs
   retirées (collision de casse `Arduino/` vs `arduino/`). Build sans warning, vérifié.
-- ⬜ **Sprint 11 — Finalisation (v2.0.0)** : docs racine, revue, tag production.
+- ✅ **Sprint 11 — Finalisation (v2.0.0)** : relecture/cohérence, docs racine à jour,
+  build sans warning (12 pages), tag **production v2.0.0**. Reste à merger `dev` → `main`
+  et pousser (manuel, par l'utilisateur).
 
 > L'historique ci-dessous documente la version **vanilla** (v0.0.1 → v1.3.0), conservée
 > pour mémoire.
