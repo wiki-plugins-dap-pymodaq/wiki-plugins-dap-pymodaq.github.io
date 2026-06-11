@@ -20,8 +20,9 @@ avec **2 plugins** (Arduino + Raspberry unifié).
 - ✅ **Sprint 8 — Doc Raspberry (v1.5.0)** : contenu complet depuis les sources (instruments
   MoveRasp / ViewRasp / PiCamera, protocole ZMQ/JSON, serveur côté Pi, adaptation banc).
   5 pages `.rst`, build sans warning, rendu vérifié en navigateur.
-- ⬜ **Sprint 9 — Doc Arduino (v1.6.0)** : pages du coéquipier préservées, traduites EN et
-  corrigées depuis les sources (instruments, extension, installation).
+- ✅ **Sprint 9 — Doc Arduino (v1.6.0)** : pages du coéquipier préservées, traduites EN et
+  corrigées depuis les sources (instruments, setup, firmware, installation, usage).
+  6 pages `.rst` + 14 images récupérées, build sans warning, rendu vérifié.
 - ⬜ **Sprint 10 — Polish (v1.7.0)** : redirections des anciennes URLs (rediraffe), favicon,
   logo, recherche/SEO, relecture.
 - ⬜ **Sprint 11 — Finalisation (v2.0.0)** : docs racine, revue, tag production.

@@ -5,6 +5,23 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.6.0] - 2026-06-11
+
+### Ajouté
+- **Documentation complète du plugin Arduino** (en anglais), combinant les sources du
+  plugin et le travail du coéquipier (préservé, traduit et corrigé) — 6 pages `.rst` :
+  - *Instruments* : actionneurs FanHeater / LED / LEDwithLCD / Servo, viewers
+    PT100 / ADS1115 / Analog, extension ColorSynthesizer.
+  - *Experimental setup* : banc thermique Arduino Nano ESP32 (composants, architecture
+    client/serveur WiFi, brochage MAX31865 / XY-MOS).
+  - *Flashing the Telemetrix firmware* : Arduino IDE, core ESP32 3.3.7, firmware
+    Telemetrix4ESP32WIFI, identifiants WiFi, port 31336.
+  - *Installing PyMoDAQ and the plugin* : installation utilisateur (Miniforge) et
+    développeur.
+  - *Using the plugin* : Dashboard, preset (FanHeater Master + viewer Slave, même IP /
+    Controller ID), pilotage ventilateur / chauffage, acquisition température.
+- **14 images** du montage Arduino récupérées depuis `v1.3.0` (renommées en kebab-case ASCII).
+
 ## [1.5.0] - 2026-06-11
 
 ### Ajouté
