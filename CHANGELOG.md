@@ -5,6 +5,18 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.5.0] - 2026-06-11
+
+### Ajouté
+- **Documentation complète du plugin Raspberry** (rédigée depuis les sources, en anglais) :
+  - *Instruments* : MoveRasp (actionneur), ViewRasp (viewer 0D), PiCamera (viewer 2D).
+  - *Communication* : transport ZeroMQ (DEALER/ROUTER, port 5555) et protocole JSON
+    (`scan` / `AQ` / `PI` / `AQ-MULTI` / `PI-MULTI`, enveloppe `ACK`/`ERROR`).
+  - *Serveur côté Pi* : architecture en couches (transport → handler → backend),
+    installation (I2C + `pigpio`), lancement, mode simulation.
+  - *Adaptation à un banc* : `config.py` (actionneurs PWM/DIGITAL, registre de capteurs),
+    bancs prêts à l'emploi (défaut + Pi Zero), ajout de pilotes.
+
 ## [1.4.0] - 2026-06-11
 
 ### Changé (refonte majeure — re-plateformage Sphinx)

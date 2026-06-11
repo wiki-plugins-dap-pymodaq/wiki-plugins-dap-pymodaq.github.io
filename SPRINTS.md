@@ -17,8 +17,9 @@ avec **2 plugins** (Arduino + Raspberry unifié).
 - ✅ **Sprint 7 — Scaffold Sphinx (v1.4.0)** : projet `docs/` (thème RTD + `sphinx_design`),
   accueil à 2 cartes, nouvelle CI build/deploy, retrait du site vanilla. Vérifié en
   navigateur (rendu identique à l'officiel).
-- ⬜ **Sprint 8 — Doc Raspberry (v1.5.0)** : contenu complet depuis les sources (instruments
+- ✅ **Sprint 8 — Doc Raspberry (v1.5.0)** : contenu complet depuis les sources (instruments
   MoveRasp / ViewRasp / PiCamera, protocole ZMQ/JSON, serveur côté Pi, adaptation banc).
+  5 pages `.rst`, build sans warning, rendu vérifié en navigateur.
 - ⬜ **Sprint 9 — Doc Arduino (v1.6.0)** : pages du coéquipier préservées, traduites EN et
   corrigées depuis les sources (instruments, extension, installation).
 - ⬜ **Sprint 10 — Polish (v1.7.0)** : redirections des anciennes URLs (rediraffe), favicon,

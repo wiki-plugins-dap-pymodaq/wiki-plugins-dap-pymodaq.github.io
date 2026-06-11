@@ -2,15 +2,50 @@ Raspberry plugin
 ================
 
 ``pymodaq_plugins_raspberry`` lets PyMoDAQ control an experimental device (or test
-bench) through a **Raspberry Pi**. A small server runs *on the Raspberry Pi* and drives
-the sensors and actuators; PyMoDAQ talks to it over the network and exposes a detector
-(to read the sensors) and an actuator (to drive the outputs), as if they were local
-instruments.
+bench) through a **Raspberry Pi**.
 
-This single plugin **replaces** the former *Raspberry Pi 3* and *Raspberry Pi Zero*
-plugins: a given bench is now just a configuration of the same code base.
+A small **server runs on the Raspberry Pi** and drives the components of the bench
+(I2C sensors, GPIO actuators); **PyMoDAQ talks to that server over the network**. From
+PyMoDAQ you then get a *detector* (to read the sensors) and an *actuator* (to drive the
+outputs), as if they were local instruments.
 
 .. note::
 
-   Detailed documentation (instruments, ZeroMQ / JSON communication protocol and the
-   on-Pi server) is added in a later sprint.
+   This single plugin **replaces** the former *Raspberry Pi 3* and *Raspberry Pi Zero*
+   plugins. A given bench (PWM or all-or-nothing actuators, different sensors…) is now
+   simply a **configuration** of the same code base — see :doc:`configuration`.
+
+Architecture at a glance
+------------------------
+
+.. code-block:: text
+
+   ┌──────────── Control computer ────────────┐         ┌──────── Raspberry Pi ────────┐
+   │  PyMoDAQ                                  │   ZMQ   │  server (src_raspberry/)     │
+   │   ├─ DAQ_Move   MoveRasp                  │  <───>  │   transport → handler →      │
+   │   ├─ DAQ_Viewer ViewRasp  ── ZMQLink ──── │   JSON  │   hardware backend           │
+   │   └─ DAQ_Viewer PiCamera                  │         │   (I2C sensors, GPIO out)    │
+   └───────────────────────────────────────────┘         └──────────────────────────────┘
+
+The control computer hosts the three PyMoDAQ instruments and the communication layer
+(``ZMQLink``); the Raspberry Pi hosts the server that actually reads the sensors and
+drives the outputs.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Raspberry plugin
+
+   instruments
+   communication
+   server
+   configuration
+
+Installation (control computer)
+-------------------------------
+
+* PyMoDAQ **>= 5**.
+* On a Windows / macOS control machine the plugin installs as is; the ``picamera2``
+  dependency (Linux-only) is automatically skipped, so only the PiCamera viewer is
+  unavailable there.
+* The Raspberry-side server has its own requirements (I2C bus + ``pigpio`` daemon) —
+  see :doc:`server`.
