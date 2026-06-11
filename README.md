@@ -1,38 +1,23 @@
 # Wiki Plugins DAP Pymodaq
 
-Wiki technique documentant les **trois plugins** développés pour le framework
-d'acquisition **PyMODAQ** dans le cadre du projet **DAP** (BTS CIEL, session 2026) :
-plugin **Arduino**, plugin **Raspberry Pi 3** et plugin **Raspberry Pi Zero**.
+Wiki technique documentant les plugins **PyMoDAQ** développés dans le cadre du projet
+**DAP** (BTS CIEL, Lycée Edouard Branly, partenariat **CETHIL**) : le plugin **Arduino**
+et le plugin **Raspberry** (qui unifie les anciens montages Raspberry Pi 3 et Pi Zero).
 
-Site **statique multi-pages** déployé via **GitHub Pages**.
+Site de **documentation Sphinx** utilisant le thème **`sphinx_rtd_theme`** — le même que
+la documentation officielle de PyMoDAQ (<https://pymodaq.cnrs.fr>) — rédigé en **anglais**
+et déployé sur **GitHub Pages**.
 
 ## Aperçu
 
-Wiki de documentation présentant le contexte du projet puis, pour chaque sous-projet
-(« repo »), les pages techniques associées (présentation, installation, configuration,
-lancement, architecture matérielle). Construit en **vanilla** (HTML5 / CSS3 /
-JavaScript ES6+), sans framework ni étape de build : les fichiers de `public/` sont
-servis directement.
+Documentation à deux sections, une par plugin :
 
-Pages :
-
-- **Accueil** (`index.html`) — contexte du projet DAP, objectifs, technologies, équipe.
-- **Plugin Arduino** (`Arduino/presentation.html`) — présentation du montage Arduino.
-- **Plugin RPi 3** (`RPI3B/*.html`) — présentation, installation OS, configuration de
-  l'environnement virtuel, lancement du script.
-- **Plugin RPi Zero** (`RPI0/rpi_zero.html`) — architecture matérielle.
-
-## Stack technique
-
-- **HTML5** sémantique
-- **CSS vanilla** (variables CSS, Flexbox/Grid, thème sombre)
-- **JavaScript vanilla** (ES6+, script classique `defer`, `IntersectionObserver` pour la
-  table des matières, menu arborescent responsive)
-- **Polices** : Inter + Fira Code (Google Fonts)
-- **Hébergement** : GitHub Pages
-- **CI/CD** : GitHub Actions (lint + déploiement)
-
-Aucune dépendance d'exécution, aucun backend.
+- **Arduino plugin** — instruments autour d'une carte Arduino / ESP32 (Telemetrix) :
+  LED multicolore, ventilateur/chauffage, acquisition analogique et PT100 / ADS1115,
+  extension Dashboard.
+- **Raspberry plugin** — pilotage d'un banc expérimental via une Raspberry Pi : un
+  actionneur et un détecteur PyMoDAQ dialoguant avec un serveur embarqué sur la Pi via
+  ZeroMQ.
 
 ## Mention IA
 
@@ -60,78 +45,50 @@ environnement de travail moderne.
 
 ```
 wiki-plugins-dap-pymodaq/
-├── public/                      # Tout ce qui est servi sur le web (racine du site)
-│   ├── index.html               # Accueil (point d'entrée)
-│   ├── style.css                # Styles + variables de thème
-│   ├── script.js                # Comportements UI (menu, TOC, scroll-spy, copie)
-│   ├── version.json             # Version courante
-│   ├── .nojekyll                # Désactive le traitement Jekyll de GitHub Pages
-│   ├── Arduino/                 # Plugin Arduino
-│   │   └── presentation.html
-│   ├── RPI3B/                   # Plugin Raspberry Pi 3
-│   │   ├── presentation.html
-│   │   ├── rpi3_install.html
-│   │   ├── configuration_rpi3b.html
-│   │   ├── lancement_du_script.html
-│   │   └── images/
-│   └── RPI0/                    # Plugin Raspberry Pi Zero
-│       ├── rpi_zero.html
-│       └── images/
-├── package.json                 # Outillage de lint/format (dev uniquement)
-├── eslint.config.js             # Config ESLint (JS)
-├── .stylelintrc.json            # Config Stylelint (CSS)
-├── .prettierrc.json             # Config Prettier (format)
-├── ARCHITECTURE.md              # Choix techniques et organisation
-├── CHANGELOG.md                 # Historique des versions
-├── SPRINTS.md                   # Backlog et avancement par sprint
+├── docs/
+│   ├── requirements.txt          # Dépendances Sphinx (sphinx, rtd-theme, design)
+│   └── source/
+│       ├── conf.py               # Configuration Sphinx (thème, version, langue)
+│       ├── index.rst             # Accueil (cartes vers les 2 plugins)
+│       ├── _static/css/          # CSS d'appoint
+│       ├── arduino/              # Documentation du plugin Arduino
+│       └── raspberry/            # Documentation du plugin Raspberry
+├── .github/workflows/deploy.yml  # CI : build Sphinx + déploiement GitHub Pages
+├── ARCHITECTURE.md               # Choix techniques et organisation
+├── CHANGELOG.md                  # Historique des versions
+├── SPRINTS.md                    # Backlog et avancement par sprint
 └── README.md
 ```
 
 Voir [ARCHITECTURE.md](ARCHITECTURE.md) pour le détail des choix techniques.
 
-## Développement local
+## Construire le wiki en local
 
-Aucune compilation n'est nécessaire. Il suffit de servir le dossier `public/` via HTTP.
+Prérequis : **Python 3**.
 
 ```bash
-# Avec Python (déjà installé)
-python -m http.server 8000 --directory public
+python -m venv .venv
+# Windows :
+.venv\Scripts\activate
+# Linux / macOS :
+# source .venv/bin/activate
+
+pip install -r docs/requirements.txt
+sphinx-build -b html docs/source docs/_build/html
+
+# Prévisualiser :
+python -m http.server 8000 --directory docs/_build/html
 # → http://localhost:8000
-```
-
-> ⚠️ Ouvrir `public/index.html` par double-clic (`file://`) fonctionne, mais privilégier
-> un petit serveur local reproduit fidèlement le comportement de GitHub Pages.
-
-## Qualité de code (linters)
-
-Les linters sont optionnels en local (nécessitent [Node.js](https://nodejs.org/)) et
-s'exécuteront automatiquement en CI à chaque push (à partir du Sprint 1).
-
-```bash
-npm install         # une seule fois
-npm run lint        # ESLint + Stylelint
-npm run lint:format # Vérification du formatage Prettier
-npm run format      # Applique le formatage Prettier
 ```
 
 ## Déploiement
 
 Le déploiement est **automatique** : tout push sur `main` déclenche le workflow
 GitHub Actions ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)) qui
-lint le code puis publie `public/` sur GitHub Pages.
+**build le site Sphinx** puis le publie sur GitHub Pages.
 
 > ℹ️ Prérequis (une seule fois) : dans **Settings → Pages** du dépôt, choisir la
-> source **« GitHub Actions »** (et non « Deploy from a branch »).
-
-## Référencement (SEO)
-
-Chaque page porte un titre et une description propres, des balises **Open Graph**
-(partage sur les réseaux), un lien **canonical**, une couleur de thème (`theme-color`)
-et un `favicon`. Le site fournit un `sitemap.xml` et un `robots.txt`.
-
-> ⚠️ Les URL absolues (Open Graph, canonical, `sitemap.xml`, `robots.txt`) utilisent la
-> base `https://wiki-plugins-dap-pymodaq.github.io`. Si le site est déployé à une autre
-> adresse, adapter cette base dans les pages, `sitemap.xml` et `robots.txt`.
+> source **« GitHub Actions »**.
 
 ## Méthode de travail et versionnage
 
@@ -140,6 +97,6 @@ et un `favicon`. Le site fournit un `sitemap.xml` et un `robots.txt`.
 - On **commite directement sur `main`** ; un **tag Git** (`vX.Y.Z`) est posé à chaque
   version publiée.
 - Versionnage sémantique `MAJEUR.MINEUR.CORRECTIF`. La version courante est définie
-  dans [public/version.json](public/version.json) et historisée dans
-  [CHANGELOG.md](CHANGELOG.md).
+  dans [docs/source/conf.py](docs/source/conf.py) (`version` / `release`) et historisée
+  dans [CHANGELOG.md](CHANGELOG.md).
 - Les fichiers de documentation racine sont mis à jour **à chaque sprint**.

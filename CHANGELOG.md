@@ -5,6 +5,24 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [1.4.0] - 2026-06-11
+
+### Changé (refonte majeure — re-plateformage Sphinx)
+- **Le wiki devient un projet Sphinx** utilisant le thème **`sphinx_rtd_theme`**,
+  identique à la documentation officielle PyMoDAQ. Le contenu passe en
+  **reStructuredText** et en **anglais**.
+- Scaffold `docs/source/` : `conf.py`, accueil avec cartes `sphinx_design`, sections
+  `arduino/` et `raspberry/`, plus `docs/requirements.txt`.
+- **Nouvelle CI** : build `sphinx-build` puis déploiement du HTML généré sur GitHub Pages.
+
+### Retiré
+- L'ancien site **vanilla** (`public/` HTML/CSS/JS) et l'outillage Node
+  (ESLint/Stylelint/Prettier, `package.json`). Conservé dans l'historique (tag `v1.3.0`).
+
+### À venir
+- Fusion des plugins Raspberry Pi 3 + Pi Zero en un plugin **Raspberry** unique et mise à
+  jour du plugin **Arduino**, documentés depuis les sources (sprints suivants).
+
 ## [1.3.0] - 2026-06-09
 
 ### Ajouté

@@ -1,44 +1,35 @@
 # ──────────────────────────────────────────────────────────────
-# Dépendances (outillage de lint/format — non nécessaires au déploiement)
+# Environnement virtuel Python (build Sphinx local)
 # ──────────────────────────────────────────────────────────────
-node_modules/
-.npm/
-.pnpm-store/
+.venv/
+venv/
+__pycache__/
+*.pyc
 
 # ──────────────────────────────────────────────────────────────
-# Build / sorties générées (le site statique vit dans public/, versionné)
+# Sortie de build Sphinx (générée)
 # ──────────────────────────────────────────────────────────────
-dist/
-build/
-.cache/
-*.min.css.map
-*.min.js.map
+docs/_build/
 
 # ──────────────────────────────────────────────────────────────
-# Secrets et environnement — rien de sensible ne doit être commité
+# Secrets et environnement
 # ──────────────────────────────────────────────────────────────
 .env
 .env.*
 !.env.example
 
 # ──────────────────────────────────────────────────────────────
-# Logs et rapports
+# Logs et fichiers système
 # ──────────────────────────────────────────────────────────────
 *.log
-npm-debug.log*
 logs/
-coverage/
-
-# ──────────────────────────────────────────────────────────────
-# Fichiers système d'exploitation
-# ──────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 desktop.ini
 ehthumbs.db
 
 # ──────────────────────────────────────────────────────────────
-# Outillage local de l'agent (non versionné)
+# Outillage local de l'agent / preview (non versionné)
 # ──────────────────────────────────────────────────────────────
 .claude/
 
@@ -49,6 +40,5 @@ ehthumbs.db
 !.vscode/extensions.json
 !.vscode/settings.json
 .idea/
-*.sublime-workspace
 *.swp
 *~

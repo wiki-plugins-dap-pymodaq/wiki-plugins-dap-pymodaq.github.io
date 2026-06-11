@@ -8,6 +8,28 @@ Légende : ✅ terminé · 🚧 en cours · ⬜ à faire
 
 ---
 
+## 🔄 Refonte « v2.0 » — Re-plateformage Sphinx (en cours)
+
+Direction validée le 2026-06-11 : le wiki passe d'un site **vanilla** à un projet
+**Sphinx** au thème officiel PyMoDAQ (`sphinx_rtd_theme`), rédigé en **anglais** (`.rst`),
+avec **2 plugins** (Arduino + Raspberry unifié).
+
+- ✅ **Sprint 7 — Scaffold Sphinx (v1.4.0)** : projet `docs/` (thème RTD + `sphinx_design`),
+  accueil à 2 cartes, nouvelle CI build/deploy, retrait du site vanilla. Vérifié en
+  navigateur (rendu identique à l'officiel).
+- ⬜ **Sprint 8 — Doc Raspberry (v1.5.0)** : contenu complet depuis les sources (instruments
+  MoveRasp / ViewRasp / PiCamera, protocole ZMQ/JSON, serveur côté Pi, adaptation banc).
+- ⬜ **Sprint 9 — Doc Arduino (v1.6.0)** : pages du coéquipier préservées, traduites EN et
+  corrigées depuis les sources (instruments, extension, installation).
+- ⬜ **Sprint 10 — Polish (v1.7.0)** : redirections des anciennes URLs (rediraffe), favicon,
+  logo, recherche/SEO, relecture.
+- ⬜ **Sprint 11 — Finalisation (v2.0.0)** : docs racine, revue, tag production.
+
+> L'historique ci-dessous documente la version **vanilla** (v0.0.1 → v1.3.0), conservée
+> pour mémoire.
+
+---
+
 ## ✅ v0.0.1 — Hotfixes navigation & branding
 Trois correctifs livrés en commits séparés :
 - **FIX-1** — lien Arduino cassé sur l'accueil (`RPI0/presentation.html` →
