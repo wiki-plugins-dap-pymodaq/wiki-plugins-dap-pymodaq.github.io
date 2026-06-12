@@ -99,15 +99,49 @@ and install its dependencies when prompted).
 4. Configure the sketch
 -----------------------
 
-At the top of the file are the *feature flags* and the WiFi credentials. Set the SSID and
-password of the local network:
+All the options are grouped at the top of the file as commented ``#define`` lines, next to
+the WiFi credentials. Uncomment a line to activate the corresponding option.
+
+**WiFi credentials** — set the SSID and password of the local network:
 
 .. code-block:: cpp
 
    const char *ssid     = "NETWORK_NAME";
    const char *password = "PASSWORD";
 
-Check the feature flags as described in the sketch header, then compile.
+**Network mode** — by default the board obtains its IP address from the router (DHCP). To
+give it a fixed address instead, uncomment ``USE_STATIC_IP`` and adjust the addresses to
+match the local network:
+
+.. code-block:: cpp
+
+   #define USE_STATIC_IP 1
+
+   #ifdef USE_STATIC_IP
+   IPAddress local_IP(192, 168, 1, 50);
+   IPAddress gateway(192, 168, 1, 1);
+   IPAddress subnet(255, 255, 255, 0);
+   #endif
+
+**I2C / SPI pins** — when the Python client does not select the pins itself, the firmware
+uses the pins defined at the top of the sketch. Uncomment and adjust them to match the
+wiring of the board:
+
+.. code-block:: cpp
+
+   // #define I2C_SDA_PIN 21
+   // #define I2C_SCL_PIN 22
+
+   // #define SPI_SCK_PIN 18
+   // #define SPI_MISO_PIN 19
+   // #define SPI_MOSI_PIN 23
+
+.. note::
+
+   For the wiring used in this project (see :doc:`hardware`), the SPI pins of the
+   Arduino Nano ESP32 are ``SCK = GPIO13``, ``MISO = GPIO12`` and ``MOSI = GPIO11``.
+
+Check the remaining feature flags as described in the sketch header, then compile.
 
 .. figure:: images/arduino-ide-6.png
    :alt: Sketch configuration
@@ -125,7 +159,8 @@ Check the feature flags as described in the sketch header, then compile.
 ---------------------------
 
 After upload, open the **Serial Monitor**: the ESP32 prints the IP address it obtained on
-the network. Note it down — it is the address you will enter in the PyMoDAQ plugins.
+the network (or the fixed address if ``USE_STATIC_IP`` is enabled). Note it down — it is
+the address you will enter in the PyMoDAQ plugins.
 
 .. figure:: images/serial-monitor-ip.png
    :alt: Serial monitor showing the IP address
