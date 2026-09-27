@@ -37,10 +37,55 @@ is not interchangeable, as it assembles the others.
 * **config.py** — the description of the bench (pins, sensors, actuators). The **only**
   file to adapt from one bench to another (see :doc:`configuration`).
 * **main.py** — entry point: instantiates and wires the three layers
-  (``HardwareBackend`` → ``JsonRequestHandler`` → ``ZmqServer`` on port 5555).
+  (``HardwareBackend`` → ``JsonRequestHandler`` → ``ZmqServer``, port 5555 by default).
 
-Requirements and installation
------------------------------
+Quick installation (recommended)
+--------------------------------
+
+A ready-to-use package installs the server on the Raspberry Pi and makes it start with
+the board — see :doc:`/downloads` (*Raspberry Pi installation package*).
+
+#. Flash **Raspberry Pi OS (64-bit)**, enable SSH, and connect the board to the network
+   (Internet is needed during the installation).
+#. Copy the package to the board and run the installer:
+
+   .. code-block:: bash
+
+      scp install-dap-raspberry.zip <user>@<raspberry-ip>:~     # from the control computer
+      unzip install-dap-raspberry.zip && cd install-dap-raspberry  # on the Raspberry Pi
+      sudo bash install.sh
+
+#. Report the IP address printed at the end in ``config_raspberry.toml`` on the control
+   computer (``address_Rasp``), then ``sudo reboot`` if the installer asks for it (first
+   activation of I2C).
+
+The installer:
+
+* installs the system packages (``python3-venv``, ``i2c-tools``, ``pigpio``), enables I2C
+  and the ``pigpiod`` daemon;
+* copies the server to ``/opt/pymodaq-raspberry`` with its own Python environment;
+* installs the ``pymodaq-raspberry`` systemd service (starts at boot, restarts on failure);
+* stops and disables the former ``pilotage.service`` (manual procedure below), which uses
+  the same port;
+* keeps an existing, modified ``config.py`` when run again (the new version is saved as
+  ``config.py.new``).
+
+Options: ``--port <n>`` (other listening port), ``--user <account>`` (account running the
+server, default: the one calling ``sudo``), ``--no-autostart``. Without administrator
+rights, ``bash install.sh`` installs the server in ``~/pymodaq-raspberry`` and starts it at
+boot through the user's crontab, without changing the system.
+
+Everyday commands:
+
+.. code-block:: bash
+
+   sudo systemctl status pymodaq-raspberry     # state of the server
+   journalctl -u pymodaq-raspberry -f          # live log
+   sudo systemctl restart pymodaq-raspberry    # after editing config.py
+   sudo bash uninstall.sh                      # remove it (from the package folder)
+
+Manual installation
+-------------------
 
 #. **OS Installation** — Flash **Raspberry Pi OS (64-bit)** on a micro-SD card (8 GB min.). Connect via SSH and update the system: ``sudo apt update && sudo apt upgrade -y``.
 #. **Enable I2C** — ``sudo raspi-config`` → *Interfacing Options* → *I2C*.
@@ -95,16 +140,22 @@ Running and Auto-start (systemd)
 
 .. code-block:: bash
 
-   python main.py
+   python main.py              # listens on port 5555
+   python main.py --port 5556  # other port (report it in the plugin configuration)
+   python main.py --verbose    # also logs every request and its response
 
 .. note::
 
-   **Automatic simulation mode** — if the I2C bus or the ``pigpio`` daemon are unreachable (for
-   instance when running on a regular PC), the server automatically falls back to
-   simulated objects (``MagicMock`` / ``SIMULE`` drivers), so the network communication can be tested without
-   a real Raspberry Pi.
+   **Automatic simulation mode** — if the I2C bus is unreachable, if no sensor answers on
+   it (bench not wired), or if the ``pigpio`` daemon is not running, the server falls back
+   to simulation for the concerned part and logs a warning. The simulated temperatures and
+   humidity follow a simple thermal model that reacts to the heater and the fan, and each
+   simulated reading lasts as long as a real one. The server starts this way on any
+   platform (Windows, macOS, Linux), so a whole demonstration can run on a single PC —
+   see ``src_raspberry/README.md``.
 
-**In production:** create a systemd service file at ``/etc/systemd/system/pilotage.service``:
+**In production:** the quick installation above creates the service for you. To do it by
+hand, create a systemd service file at ``/etc/systemd/system/pilotage.service``:
 
 .. code-block:: ini
 

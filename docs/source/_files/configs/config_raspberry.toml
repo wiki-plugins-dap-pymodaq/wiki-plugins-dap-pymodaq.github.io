@@ -1,0 +1,68 @@
+# An example configuration for a Raspberry (unified plugin), replace the IP
+# address (and pins if needed) with the values matching your hardware before use.
+
+[Raspberry]
+address_Rasp = '192.168.1.40'
+port = '5555'
+timeout_ms = 2000 # maximum wait for a Raspberry's response, in milliseconds
+
+[Raspberry.ACTUATOR.COMPONENT1]
+title = "Ventilateur"
+name = "ventilateur"
+units = ""
+min = "0"
+max = "255"
+address = "None"
+pin = "18"
+
+[Raspberry.ACTUATOR.COMPONENT2]
+title = "Resistance"
+name = "resistance"
+units = ""
+min = "0"
+max = "255"
+address = "None"
+pin = "23"
+
+[Raspberry.DETECTOR.COMPONENT1]
+title = "rh_sortie [aht10]"
+name = "rh_sortie"
+units = "RH"
+address = "0x38"
+pin = "None"
+
+[Raspberry.DETECTOR.COMPONENT2]
+title = "t_resistance [tmp102]"
+name = "t_resistance"
+units = "°C"
+address = "0x48"
+pin = "None"
+
+[Raspberry.DETECTOR.COMPONENT3]
+title = "t_dissipateur [tmp102]"
+name = "t_dissipateur"
+units = "°C"
+address = "0x49"
+pin = "None"
+
+[Raspberry.DETECTOR.COMPONENT4]
+title = "t_entree [tmp102]"
+name = "t_entree"
+units = "°C"
+address = "0x4a"
+pin = "None"
+
+[Raspberry.DETECTOR.COMPONENT5]
+title = "t_sortie [tmp102]"
+name = "t_sortie"
+units = "°C"
+address = "0x4b"
+pin = "None"
+
+[Raspberry.DETECTOR.COMPONENT6]
+title = "T_emc [emc2101]"
+name = "T_emc"
+units = "°C"
+address = "0x4c"
+pin = "None"
+

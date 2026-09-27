@@ -7,7 +7,7 @@ a dedicated layer, so the transport can be replaced without touching the instrum
 Transport: ZeroMQ
 -----------------
 
-On the control computer, ``ZMQLink`` (``hardware/Link_PMQ.py``) opens a ZeroMQ
+On the control computer, ``ZMQLink`` (``hardware/link_zmq.py``) opens a ZeroMQ
 **DEALER** socket and connects to ``tcp://<ip>:<port>`` with a unique identity. On the
 Raspberry, the server runs a **ROUTER** socket (``ZmqServer``) listening on port
 **5555**.
@@ -17,11 +17,16 @@ The Raspberry IP address and port are read from the plugin configuration
 **request / response**: PyMoDAQ sends one JSON frame and the server replies with one JSON
 frame.
 
+The wait for a response is bounded (``timeout_ms``, 2000 ms by default): an unreachable or
+frozen Raspberry produces an error message in PyMoDAQ, never a frozen interface. At
+initialization, the link is only considered established once the Raspberry has answered
+a ``scan`` request.
+
 JSON protocol
 -------------
 
 A request is a JSON object carrying a ``type`` field, which the server routes to the
-matching handler. Five request types are supported.
+matching handler. Four request types are supported.
 
 **Scan** the connected devices:
 
@@ -36,13 +41,15 @@ matching handler. Five request types are supported.
    {"type": "AQ", "register": "add", "add": "0x38", "channel": "temp"}
    {"type": "AQ", "register": "pin", "pin": 18}
 
-**Pilot** a single output (set a pin value):
+**Pilot** a single output (set a pin value). Actuators are driven by their GPIO pin only:
+a request by I2C address is answered with an explicit error.
 
 .. code-block:: json
 
    {"type": "PI", "register": "pin", "pin": 18, "value": 128}
 
-**Multi** acquisition / piloting, to read or drive several components in one frame:
+**Multi** acquisition, to read several components in one frame (values are returned in the
+requested order):
 
 .. code-block:: json
 
@@ -61,12 +68,16 @@ Every response uses the same envelope:
    {"state": "ACK",   "value": <result>}
    {"state": "ERROR", "value": "human-readable message"}
 
+In an ``AQ-MULTI`` response, a failed reading keeps its place in the list as its own error
+object, e.g. ``[45.2, {"state": "ERROR", "value": "Capteur introuvable"}]``. The plugin logs
+the message with the component concerned and displays the value as ``nan``: a failed
+reading never looks like a measurement.
+
 On the PyMoDAQ side these frames are built for you by ``ZMQLink``:
 
 * ``multi_acquisition(addresses, pins)`` builds an ``AQ-MULTI`` request — used by the
   ``ViewRasp`` detector;
-* ``pilotage(value, address=…, pin=…)`` builds a ``PI`` request — used by the
-  ``MoveRasp`` actuator.
+* ``pilotage(value, pin)`` builds a ``PI`` request — used by the ``MoveRasp`` actuator.
 
 Extending the protocol
 ----------------------

@@ -5,6 +5,36 @@ Toutes les modifications notables de ce projet sont documentées ici.
 Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/)
 et le projet respecte le [versionnage sémantique](https://semver.org/lang/fr/) (`MAJEUR.MINEUR.CORRECTIF`).
 
+## [2.3.0] - 2026-09-27
+
+### Ajouté
+- **Package d'installation Raspberry** (`install-dap-raspberry.zip`, page Downloads) :
+  `sudo bash install.sh` installe le serveur `src_raspberry` sur la carte (paquets
+  système, I2C, `pigpiod`, environnement Python dans `/opt/pymodaq-raspberry`) et le
+  service systemd `pymodaq-raspberry` (démarrage au boot, relance en cas d'arrêt).
+  Mode sans droits administrateur (`~/pymodaq-raspberry` + crontab `@reboot`),
+  `uninstall.sh`, conservation d'un `config.py` modifié, désactivation de l'ancien
+  `pilotage.service` (même port).
+- **Section « Quick installation »** dans la page du serveur Raspberry.
+- **Downloads** : configuration du plugin Raspberry unifié (`config_raspberry.toml`) et
+  configuration de test pour le mode simulation (`config_demo.toml`).
+
+### Modifié
+- **Package d'installation PC** (`install-dap-pymodaq.zip`) : plugin Raspberry 5.5.14 ;
+  `Install.bat` compare les versions fournies à celles de PyPI (version fournie par
+  défaut), propose le TOML de test (simulation) et fournit lui-même la version à pip
+  (sources sans `.git` : l'installation échouait avec `metadata-generation-failed`).
+- **Communication** : protocole mis à jour (4 types de requêtes, pilotage par broche
+  uniquement, délai de réponse borné, erreurs par composant en `AQ-MULTI`).
+- **Serveur** : mode simulation décrit à jour (modèle thermique, démarrage sur toute
+  plateforme), options `--port` et `--verbose` de `main.py`.
+- Les configurations `config_raspberrypi3.toml` / `config_raspberrypizero.toml` sont
+  présentées comme celles des anciens plugins.
+
+### Note
+- `install.sh` a été testé avec des commandes système simulées, pas encore sur un vrai
+  Raspberry Pi — à valider sur le montage.
+
 ## [2.2.0] - 2026-06-11
 
 ### Ajouté

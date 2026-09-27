@@ -23,6 +23,33 @@ configurations and presets to the right PyMoDAQ folders.
 menu. It requires Miniconda or Anaconda. See the ``README.txt`` inside the zip for
 details.
 
+* **Plugin versions** — the menu compares the plugin sources shipped in the package with
+  the latest versions published on PyPI. The shipped version (tested with the presets and
+  configurations of the package) is always installed by default; a newer PyPI version can
+  be chosen instead when one exists.
+* **Test configuration** — an option installs a Raspberry configuration for the
+  **simulation mode** (server running on the same PC, ``127.0.0.1``), to try everything
+  without a Raspberry Pi.
+
+Raspberry Pi installation package
+---------------------------------
+
+Installs the Raspberry-side server on the board (system packages, I2C, ``pigpio``,
+Python environment) and makes it **start automatically with the Raspberry Pi** (systemd
+service ``pymodaq-raspberry``).
+
+* :download:`install-dap-raspberry.zip </_files/install/install-dap-raspberry.zip>`
+
+**How to use** — copy the zip to the Raspberry Pi, then:
+
+.. code-block:: bash
+
+   unzip install-dap-raspberry.zip && cd install-dap-raspberry
+   sudo bash install.sh
+
+The IP address to report in the plugin configuration is printed at the end. Details in
+:doc:`raspberry/server` and in the ``README.txt`` inside the zip.
+
 .. warning::
 
    The Raspberry preset (``Raspberry.xml``) was **adapted** from the former Raspberry
@@ -44,16 +71,32 @@ Arduino
 
 :download:`Download config_arduino.toml </_files/configs/config_arduino.toml>`
 
-Raspberry Pi 3
-~~~~~~~~~~~~~~
+Raspberry (unified plugin)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Configuration of the unified ``Raspberry`` plugin for the default bench (replace the IP
+address with the one of your board).
+
+.. literalinclude:: /_files/configs/config_raspberry.toml
+   :language: toml
+
+:download:`Download config_raspberry.toml </_files/configs/config_raspberry.toml>`
+
+Test configuration for the **simulation mode** (server started on the same PC with
+``python src_raspberry/main.py``):
+
+:download:`Download config_demo.toml </_files/configs/config_demo.toml>`
+
+Raspberry Pi 3 (former plugin)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: /_files/configs/config_raspberrypi3.toml
    :language: toml
 
 :download:`Download config_raspberrypi3.toml </_files/configs/config_raspberrypi3.toml>`
 
-Raspberry Pi Zero
-~~~~~~~~~~~~~~~~~
+Raspberry Pi Zero (former plugin)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. literalinclude:: /_files/configs/config_raspberrypizero.toml
    :language: toml
