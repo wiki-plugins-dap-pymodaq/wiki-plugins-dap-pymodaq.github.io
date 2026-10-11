@@ -67,15 +67,6 @@ manager.
 3. Install the firmware
 -----------------------
 
-Download the ``Telemetrix4Esp32WIFI`` firmware file (right-click → *Save link as*), then
-double-click it to open it directly in the Arduino IDE.
-
-.. figure:: images/arduino-ide-5.png
-   :alt: Opening the firmware sketch
-   :width: 80%
-
-   The firmware sketch opened in the Arduino IDE.
-
 Install the required libraries from *Tools → Manage Libraries* (search ``Telemetrix4Esp32``
 and install its dependencies when prompted).
 
