@@ -96,12 +96,20 @@ Open the example sketch from **File → Examples → Telemetrix4Esp32 → Teleme
 All the options are grouped at the top of the file as commented ``#define`` lines, next to
 the WiFi credentials. Uncomment a line to activate the corresponding option.
 
+**DAC support** — by default, ``DAC_SUPPORTED`` is enabled in the sketch. If your board does not support a hardware DAC (such as the ESP32-S3 or ESP32-C3), comment it out to avoid a compilation error:
+
+.. code-block:: cpp
+
+    // If your ESP32 device does not support a DAC (ESP32-S3)
+    // Comment out this #define to avoid a compilation error
+    // #define DAC_SUPPORTED 1
+
 **WiFi credentials** — set the SSID and password of the local network:
 
 .. code-block:: cpp
 
-   const char *ssid     = "NETWORK_NAME";
-   const char *password = "PASSWORD";
+    const char *ssid     = "NETWORK_NAME";
+    const char *password = "PASSWORD";
 
 **Network mode** — by default the board obtains its IP address from the router (DHCP). To
 give it a fixed address instead, uncomment ``USE_STATIC_IP`` and adjust the addresses to
@@ -109,13 +117,13 @@ match the local network:
 
 .. code-block:: cpp
 
-   #define USE_STATIC_IP 1
+    #define USE_STATIC_IP 1
 
-   #ifdef USE_STATIC_IP
-   IPAddress local_IP(192, 168, 1, 50);
-   IPAddress gateway(192, 168, 1, 1);
-   IPAddress subnet(255, 255, 255, 0);
-   #endif
+    #ifdef USE_STATIC_IP
+    IPAddress local_IP(192, 168, 1, 50);
+    IPAddress gateway(192, 168, 1, 1);
+    IPAddress subnet(255, 255, 255, 0);
+    #endif
 
 **I2C / SPI pins** — when the Python client does not select the pins itself, the firmware
 uses the pins defined at the top of the sketch. Uncomment and adjust them to match the
@@ -123,31 +131,31 @@ wiring of the board:
 
 .. code-block:: cpp
 
-   // #define I2C_SDA_PIN 21
-   // #define I2C_SCL_PIN 22
+    // #define I2C_SDA_PIN 21
+    // #define I2C_SCL_PIN 22
 
-   // #define SPI_SCK_PIN 18
-   // #define SPI_MISO_PIN 19
-   // #define SPI_MOSI_PIN 23
+    // #define SPI_SCK_PIN 18
+    // #define SPI_MISO_PIN 19
+    // #define SPI_MOSI_PIN 23
 
 .. note::
 
-   For the wiring used in this project (see :doc:`hardware`), the SPI pins of the
-   Arduino Nano ESP32 are ``SCK = GPIO13``, ``MISO = GPIO12`` and ``MOSI = GPIO11``.
+    For the wiring used in this project (see :doc:`hardware`), the SPI pins of the
+    Arduino Nano ESP32 are ``SCK = GPIO13``, ``MISO = GPIO12`` and ``MOSI = GPIO11``.
 
 Check the remaining feature flags as described in the sketch header, then compile.
 
 .. figure:: images/arduino-ide-6.png
-   :alt: Sketch configuration
-   :width: 80%
+    :alt: Sketch configuration
+    :width: 80%
 
-   Checking the feature flags before compiling.
+    Checking the feature flags before compiling.
 
 .. figure:: images/arduino-ide-7.png
-   :alt: Uploading the sketch
-   :width: 80%
+    :alt: Uploading the sketch
+    :width: 80%
 
-   Selecting the board / port and uploading the firmware.
+    Selecting the board / port and uploading the firmware.
 
 5. Get the board IP address
 ---------------------------
