@@ -85,7 +85,7 @@ and install its dependencies when prompted).
 Open the example sketch from **File → Examples → Telemetrix4Esp32 → Telemetrix4Esp32WiFi**.
 
 .. figure:: images/arduino-ide-9.png
-   :alt: Example firmware
+   :alt: Examples firmware
    :width: 80%
 
    Opening the Telemetrix4Esp32WiFi example sketch from the Examples menu.
