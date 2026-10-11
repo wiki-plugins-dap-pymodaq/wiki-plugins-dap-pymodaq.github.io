@@ -82,11 +82,14 @@ and install its dependencies when prompted).
 
    Accept the installation of the dependencies.
 
-.. warning::
+Open the example sketch from **File → Examples → Telemetrix4Esp32 → Telemetrix4Esp32WiFi**.
 
-   The downloaded file is a **modified** version of the official firmware. Do **not**
-   install it through the Library Manager — use the downloaded file only.
+.. figure:: images/arduino-ide-9.png
+   :alt: Example firmware
+   :width: 80%
 
+   Opening the Telemetrix4Esp32WiFi example sketch from the Examples menu.
+   
 4. Configure the sketch
 -----------------------
 
